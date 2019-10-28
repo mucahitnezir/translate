@@ -1,24 +1,23 @@
 <template>
   <v-textarea
-    :background-color="bgColor"
-    color="white"
-    solo
+    :value="translate.translatedText"
+    auto-grow
+    background-color="#F5F5F5"
     flat
     hide-details
     label="Target Text"
-    value="Merhaba"
     readonly
-    auto-grow
+    solo
   />
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'TargetInput',
   computed: {
-    bgColor() {
-      return this.$vuetify.breakpoint.mdAndDown ? 'primary' : 'gray';
-    },
+    ...mapState(['translate']),
   },
 };
 </script>

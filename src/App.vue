@@ -29,3 +29,15 @@ export default {
   data: () => ({}),
 };
 </script>
+
+<style>
+  .flex-1 {
+    flex: 1;
+  }
+  .hp-100 {
+    height: 100%;
+  }
+  .bg-target-gray {
+    background-color: #F5F5F5;
+  }
+</style>
