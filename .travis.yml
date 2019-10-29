@@ -10,6 +10,8 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
+  keep_history: true
   local_dir: dist
+  fqdn: translate.mucahitnezir.com
   on:
     branch: master
