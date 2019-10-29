@@ -30,8 +30,12 @@ export const actions = {
   changeSourceLang({ commit }, lang) {
     commit('SET_SOURCE_LANG_CODE', lang);
   },
-  changeTargetLang({ commit }, lang) {
+  changeTargetLang({ commit, state, dispatch }, lang) {
+    const { sourceText } = state;
     commit('SET_TARGET_LANG_CODE', lang);
+    if (sourceText) {
+      dispatch('translate');
+    }
   },
   changeSourceText({ commit }, text) {
     commit('SET_SOURCE_TEXT', text);
