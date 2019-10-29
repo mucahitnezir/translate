@@ -18,7 +18,10 @@ export default {
     Speech,
   },
   computed: {
-    ...mapState('translate', ['sourceLangCode', 'sourceText']),
+    ...mapState('translate', {
+      sourceLangCode: state => state.sourceLangCode,
+      sourceText: state => state.sourceText,
+    }),
   },
 };
 </script>

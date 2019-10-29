@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import * as translateModule from './modules/translate';
+import translateModule from './modules/translate';
 
 Vue.use(Vuex);
 

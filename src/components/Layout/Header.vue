@@ -8,7 +8,7 @@
 
     <v-toolbar-title class="headline">
       <router-link :to="{ name: 'home' }" tag="span" style="cursor: pointer;">
-        Translate App
+        Translate
       </router-link>
     </v-toolbar-title>
     <v-spacer />
