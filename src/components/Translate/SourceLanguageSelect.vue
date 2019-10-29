@@ -16,13 +16,13 @@ import { mapState } from 'vuex';
 export default {
   name: 'SourceLanguageSelect',
   computed: {
-    ...mapState(['sourceLanguages']),
+    ...mapState('translate', ['sourceLanguages', 'sourceLangCode']),
     sourceLang: {
       get() {
-        return this.$store.state.translate.sourceLangCode;
+        return this.sourceLangCode;
       },
       set(val) {
-        this.$store.dispatch('changeSourceLang', val);
+        this.$store.dispatch('translate/changeSourceLang', val);
       },
     },
   },

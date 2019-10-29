@@ -16,14 +16,14 @@ import { mapState } from 'vuex';
 export default {
   name: 'ChangeLanguagesButton',
   computed: {
-    ...mapState(['translate']),
+    ...mapState('translate', ['sourceLangCode']),
     isDisabled() {
-      return this.translate.sourceLangCode === 'auto';
+      return this.sourceLangCode === 'auto';
     },
   },
   methods: {
     changeLanguages() {
-      this.$store.dispatch('changeLanguages');
+      this.$store.dispatch('translate/changeLanguages');
     },
   },
 };

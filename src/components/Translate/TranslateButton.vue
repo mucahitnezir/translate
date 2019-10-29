@@ -8,14 +8,14 @@ import { mapState } from 'vuex';
 export default {
   name: 'TranslateButton',
   computed: {
-    ...mapState(['translate']),
+    ...mapState('translate', ['sourceText']),
     isDisabled() {
-      return !this.translate.sourceText;
+      return !this.sourceText;
     },
   },
   methods: {
     onTranslate() {
-      this.$store.dispatch('translate');
+      this.$store.dispatch('translate/translate');
     },
   },
 };

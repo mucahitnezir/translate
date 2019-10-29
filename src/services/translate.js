@@ -1,4 +1,6 @@
-export const baseLanguages = [
+import { translate } from './aws';
+
+const baseLanguages = [
   { value: 'ar', text: 'Arabic' },
   { value: 'zh', text: 'Chinese (Simplified)' },
   { value: 'zh-TW', text: 'Chinese (Traditional)' },
@@ -28,3 +30,13 @@ export const sourceLanguages = [
 ];
 
 export const targetLanguages = baseLanguages;
+
+export const translateText = params => new Promise((resolve, reject) => {
+  translate.translateText(params, (err, response) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve(response);
+    }
+  });
+});

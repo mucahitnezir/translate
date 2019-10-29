@@ -18,19 +18,19 @@ import { mapState } from 'vuex';
 export default {
   name: 'SourceInput',
   computed: {
-    ...mapState(['translate']),
+    ...mapState('translate', ['sourceText']),
     inputValue: {
       get() {
-        return this.translate.sourceText;
+        return this.sourceText;
       },
       set(val) {
-        this.$store.dispatch('changeSourceText', val);
+        this.$store.dispatch('translate/changeSourceText', val);
       },
     },
   },
   methods: {
     onClear() {
-      this.$store.dispatch('clearTargetText');
+      this.$store.dispatch('translate/clearTargetText');
     },
   },
 };
