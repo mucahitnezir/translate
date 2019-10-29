@@ -6,7 +6,7 @@
   >
     <v-app-bar-nav-icon @click.stop="changeDrawerStatus" />
 
-    <v-toolbar-title class="headline">
+    <v-toolbar-title>
       <router-link :to="{ name: 'home' }" tag="span" style="cursor: pointer;">
         Translate
       </router-link>
