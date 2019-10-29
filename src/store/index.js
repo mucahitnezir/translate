@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import translateModule from './modules/translate';
+import notificationModule from './modules/notification';
 
 Vue.use(Vuex);
 
@@ -22,5 +23,6 @@ export default new Vuex.Store({
   },
   modules: {
     translate: translateModule,
+    notification: notificationModule,
   },
 });

@@ -51,7 +51,7 @@ export default {
     clearTargetText({ commit }) {
       commit('SET_TRANSLATED_TEXT', null);
     },
-    translate({ commit, state }) {
+    translate({ commit, state, dispatch }) {
       const params = {
         SourceLanguageCode: state.sourceLangCode,
         TargetLanguageCode: state.targetLangCode,
@@ -63,7 +63,11 @@ export default {
           commit('SET_SOURCE_LANG_CODE', response.SourceLanguageCode);
         })
         .catch((err) => {
-          console.log(err);
+          const notification = {
+            type: 'error',
+            message: err.message,
+          };
+          dispatch('notification/add', notification, { root: true });
         });
     },
   },

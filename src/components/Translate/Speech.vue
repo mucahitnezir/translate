@@ -40,7 +40,11 @@ export default {
             audio.play();
           })
           .catch((err) => {
-            alert(err.message);
+            const notification = {
+              type: 'error',
+              message: err.message,
+            };
+            this.$store.dispatch('notification/add', notification);
           });
       }
     },
