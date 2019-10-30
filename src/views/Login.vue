@@ -29,7 +29,13 @@
             />
             <div class="d-flex">
               <v-spacer />
-              <v-btn :disabled="!formValid" type="submit" color="primary" depressed>Login</v-btn>
+              <v-btn
+                :disabled="!formValid"
+                :loading="isLoading"
+                type="submit"
+                color="primary"
+                depressed
+              >Login</v-btn>
             </div>
           </v-form>
         </v-card-text>
@@ -47,6 +53,7 @@ export default {
       password: '',
     },
     formValid: false,
+    isLoading: false,
     rules: {
       email: [
         v => !!v || 'E-mail is required',
@@ -60,13 +67,20 @@ export default {
   }),
   methods: {
     onFormSubmit() {
+      this.isLoading = true;
       this.$store.dispatch('auth/login', this.formData)
         .then(() => {
+          // Disable loading
+          this.isLoading = false;
+          // Redirect user
           const { redirect } = this.$route.query;
           const redirectedUrl = redirect || { name: 'home' };
           this.$router.push(redirectedUrl);
         })
         .catch((err) => {
+          // Disable loading
+          this.isLoading = false;
+          // Create notification
           const notification = {
             type: 'error',
             message: err.message,
