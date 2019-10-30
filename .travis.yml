@@ -8,11 +8,18 @@ before_script: npm run lint
 script: npm run build
 
 deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  keep_history: true
-  local_dir: dist
-  fqdn: translate.mucahitnezir.com
-  on:
-    branch: master
+  - provider: pages
+    skip_cleanup: true
+    github_token: $GITHUB_TOKEN
+    keep_history: true
+    local_dir: dist
+    fqdn: translate.mucahitnezir.com
+    on:
+      branch: master
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    bucket: translate.medixo.net
+    skip_cleanup: true
+    acl: public_read
+    local_dir: dist
