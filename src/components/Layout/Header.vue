@@ -15,11 +15,22 @@
     <v-toolbar-items>
       <template v-if="!isLoggedIn">
         <v-btn
+          :to="{ name: 'login' }"
           color="primary"
           rounded
           text
         >
           Login
+        </v-btn>
+      </template>
+      <template v-else>
+        <v-btn
+          color="primary"
+          rounded
+          text
+          @click="onLogOut"
+        >
+          Logout
         </v-btn>
       </template>
     </v-toolbar-items>
@@ -34,12 +45,25 @@ export default {
       return this.$store.state.drawer;
     },
     isLoggedIn() {
-      return this.$store.state.isLoggedIn;
+      return this.$store.getters['auth/isAuthenticated'];
     },
   },
   methods: {
     changeDrawerStatus() {
       this.$store.dispatch('changeDrawerStatus', !this.drawerStatus);
+    },
+    onLogOut() {
+      this.$store.dispatch('auth/logOut')
+        .then(() => {
+          this.$router.push({ name: 'login' });
+        })
+        .catch((err) => {
+          const notification = {
+            type: 'error',
+            message: err.message,
+          };
+          this.$store.dispatch('notification/add', notification);
+        });
     },
   },
 };
