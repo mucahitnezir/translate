@@ -3,25 +3,25 @@
     <v-btn text icon>
       <v-icon>mdi-microphone</v-icon>
     </v-btn>
-    <Speech :lang-code="sourceLangCode" :text="sourceText" />
+    <SpeechButton :lang-code="sourceLangCode" :text="sourceText" />
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
-import Speech from './Speech.vue';
+import SpeechButton from '../Shared/SpeechButton.vue';
 
 export default {
   name: 'SourceActions',
   components: {
-    Speech,
+    SpeechButton,
   },
   computed: {
-    ...mapState('translate', {
-      sourceLangCode: state => state.sourceLangCode,
-      sourceText: state => state.sourceText,
-    }),
+    sourceLangCode() {
+      return this.$store.state.translate.sourceLangCode;
+    },
+    sourceText() {
+      return this.$store.state.translate.sourceText;
+    },
   },
 };
 </script>

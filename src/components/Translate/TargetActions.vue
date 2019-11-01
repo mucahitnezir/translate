@@ -1,23 +1,27 @@
 <template>
-  <div class="pa-2" style="background-color: #ddd">
-    <Speech :lang-code="targetLangCode" :text="translatedText" />
+  <div class="d-flex pa-2" style="background-color: #ddd">
+    <SpeechButton :lang-code="targetLangCode" :text="translatedText" />
+    <v-spacer />
+    <CopyToClipboardButton :text="translatedText" />
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
-import Speech from './Speech.vue';
+import SpeechButton from '../Shared/SpeechButton.vue';
+import CopyToClipboardButton from '../Shared/CopyToClipboardButton.vue';
 
 export default {
   name: 'TargetActions',
   components: {
-    Speech,
+    SpeechButton,
+    CopyToClipboardButton,
   },
   computed: {
-    ...mapState('translate', ['targetLangCode', 'translatedText']),
-    isButtonDisabled() {
-      return !this.translatedText;
+    targetLangCode() {
+      return this.$store.state.translate.targetLangCode;
+    },
+    translatedText() {
+      return this.$store.state.translate.translatedText;
     },
   },
 };

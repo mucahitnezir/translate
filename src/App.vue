@@ -12,6 +12,8 @@
       </v-container>
     </v-content>
 
+    <SnackBar />
+
     <Footer />
   </v-app>
 </template>
@@ -21,6 +23,7 @@ import Header from './components/Layout/Header.vue';
 import Sidebar from './components/Layout/Sidebar.vue';
 import Footer from './components/Layout/Footer.vue';
 import NotificationContainer from './components/Notification/NotificationContainer.vue';
+import SnackBar from './components/Notification/SnackBar.vue';
 
 export default {
   name: 'App',
@@ -29,6 +32,7 @@ export default {
     Sidebar,
     Footer,
     NotificationContainer,
+    SnackBar,
   },
   data: () => ({}),
 };

@@ -16,11 +16,11 @@ deploy:
     fqdn: translate.mucahitnezir.com
     on:
       branch: master
-  - provider: s3
-    access_key_id: $AWS_ACCESS_KEY_ID
-    secret_access_key: $AWS_SECRET_ACCESS_KEY
-    region: eu-central-1
-    bucket: translate.medixo.net
-    skip_cleanup: true
-    acl: public_read
-    local_dir: dist
+  # - provider: s3
+  #   access_key_id: $AWS_ACCESS_KEY_ID
+  #   secret_access_key: $AWS_SECRET_ACCESS_KEY
+  #   region: eu-central-1
+  #   bucket: translate.medixo.net
+  #   skip_cleanup: true
+  #   acl: public_read
+  #   local_dir: dist

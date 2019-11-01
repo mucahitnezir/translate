@@ -1,5 +1,5 @@
 <template>
-  <v-btn :disabled="isDisabled" color="primary" @click="onTranslate">Translate</v-btn>
+  <v-btn :disabled="isDisabled" color="primary" depressed @click="onTranslate">Translate</v-btn>
 </template>
 
 <script>

@@ -13,15 +13,12 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
 export default {
   name: 'SourceInput',
   computed: {
-    ...mapState('translate', ['sourceText']),
     inputValue: {
       get() {
-        return this.sourceText;
+        return this.$store.state.translate.sourceText;
       },
       set(val) {
         this.$store.dispatch('translate/changeSourceText', val);

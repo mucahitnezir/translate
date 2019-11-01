@@ -12,12 +12,12 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
 export default {
   name: 'TargetInput',
   computed: {
-    ...mapState('translate', ['translatedText']),
+    translatedText() {
+      return this.$store.state.translate.translatedText;
+    },
   },
 };
 </script>
