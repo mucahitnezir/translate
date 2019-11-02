@@ -3,17 +3,17 @@
     <v-btn text icon>
       <v-icon>mdi-microphone</v-icon>
     </v-btn>
-    <SpeechButton :lang-code="sourceLangCode" :text="sourceText" />
+    <ListenButton :lang-code="sourceLangCode" :text="sourceText" />
   </div>
 </template>
 
 <script>
-import SpeechButton from '../Shared/SpeechButton.vue';
+import ListenButton from '../Shared/ListenButton.vue';
 
 export default {
   name: 'SourceActions',
   components: {
-    SpeechButton,
+    ListenButton,
   },
   computed: {
     sourceLangCode() {

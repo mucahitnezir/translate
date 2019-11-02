@@ -1,19 +1,19 @@
 <template>
   <div class="d-flex pa-2" style="background-color: #ddd">
-    <SpeechButton :lang-code="targetLangCode" :text="translatedText" />
+    <ListenButton :lang-code="targetLangCode" :text="translatedText" />
     <v-spacer />
     <CopyToClipboardButton :text="translatedText" />
   </div>
 </template>
 
 <script>
-import SpeechButton from '../Shared/SpeechButton.vue';
+import ListenButton from '../Shared/ListenButton.vue';
 import CopyToClipboardButton from '../Shared/CopyToClipboardButton.vue';
 
 export default {
   name: 'TargetActions',
   components: {
-    SpeechButton,
+    ListenButton,
     CopyToClipboardButton,
   },
   computed: {

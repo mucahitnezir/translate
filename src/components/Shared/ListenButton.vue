@@ -1,14 +1,19 @@
 <template>
-  <v-btn :disabled="isDisabled" text icon @click="onSpeechText">
-    <v-icon>mdi-volume-high</v-icon>
-  </v-btn>
+  <v-tooltip top>
+    <template v-slot:activator="{ on }">
+      <v-btn :disabled="isDisabled" text icon v-on="on" @click="onSpeechText">
+        <v-icon>mdi-volume-high</v-icon>
+      </v-btn>
+    </template>
+    <span>Listen</span>
+  </v-tooltip>
 </template>
 
 <script>
 import { getVoiceIdFromLangCode, speechText } from '../../services/speech';
 
 export default {
-  name: 'Speech',
+  name: 'Listen',
   props: {
     langCode: {
       type: String,
