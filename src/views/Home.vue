@@ -25,9 +25,6 @@
         </v-flex>
       </v-layout>
     </v-card>
-    <div class="text-center">
-      <TranslateButton />
-    </div>
   </div>
 </template>
 
@@ -37,7 +34,6 @@ import SourceActions from '../components/Translate/SourceActions.vue';
 import SourceInput from '../components/Translate/SourceInput.vue';
 import TargetActions from '../components/Translate/TargetActions.vue';
 import TargetInput from '../components/Translate/TargetInput.vue';
-import TranslateButton from '../components/Translate/TranslateButton.vue';
 import SourceLanguageSelect from '../components/Translate/SourceLanguageSelect.vue';
 import TargetLanguageSelect from '../components/Translate/TargetLanguageSelect.vue';
 
@@ -47,19 +43,10 @@ export default {
     ChangeLanguagesButton,
     TargetLanguageSelect,
     SourceLanguageSelect,
-    TranslateButton,
     SourceActions,
     SourceInput,
     TargetActions,
     TargetInput,
   },
-  data: () => ({
-    languages: [
-      { value: 'tr', text: 'Turkish' },
-      { value: 'en', text: 'English' },
-      { value: 'ru', text: 'Russian' },
-      { value: 'it', text: 'Italian' },
-    ],
-  }),
 };
 </script>

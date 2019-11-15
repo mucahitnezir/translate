@@ -30,6 +30,13 @@ export default {
       this.$store.dispatch('translate/clearTargetText');
     },
   },
+  watch: {
+    inputValue(value) {
+      if (value) {
+        this.$store.dispatch('translate/translate');
+      }
+    },
+  },
 };
 </script>
 
