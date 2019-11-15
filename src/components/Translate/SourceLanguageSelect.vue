@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <v-select
-      v-model="sourceLang"
-      :items="sourceLanguages"
-      dense
-      hide-details
-      solo
-    />
-  </div>
+  <v-autocomplete
+    v-model="sourceLang"
+    :items="sourceLanguages"
+    dense
+    hide-details
+    solo
+  />
 </template>
 
 <script>
