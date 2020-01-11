@@ -27,12 +27,7 @@ export default {
     },
   },
   getters: {
-    isAuthenticated(state) {
-      if (!state.user) {
-        return false;
-      }
-      return true;
-    },
+    isAuthenticated: state => !!state.user,
     authUser: state => state.user,
   },
 };
