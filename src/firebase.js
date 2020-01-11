@@ -1,4 +1,5 @@
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 const app = firebase.initializeApp({
   apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
@@ -12,5 +13,5 @@ myAuth.getCurrentUser = () => new Promise((resolve) => {
   });
 });
 
+// eslint-disable-next-line import/prefer-default-export
 export const auth = myAuth;
-export const googleProvider = new firebase.auth.GoogleAuthProvider();
