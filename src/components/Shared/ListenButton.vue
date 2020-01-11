@@ -2,7 +2,7 @@
   <v-tooltip top>
     <template v-slot:activator="{ on }">
       <v-btn :disabled="isDisabled" text icon v-on="on" @click="onSpeechText">
-        <v-icon>mdi-volume-high</v-icon>
+        <v-icon>{{ svgPath }}</v-icon>
       </v-btn>
     </template>
     <span>Listen</span>
@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import { mdiVolumeHigh } from '@mdi/js';
+
 import { getVoiceIdFromLangCode, speechText } from '../../services/speech';
 
 export default {
@@ -24,6 +26,9 @@ export default {
       default: '',
     },
   },
+  data: () => ({
+    svgPath: mdiVolumeHigh,
+  }),
   computed: {
     isDisabled() {
       const voiceId = getVoiceIdFromLangCode(this.langCode);

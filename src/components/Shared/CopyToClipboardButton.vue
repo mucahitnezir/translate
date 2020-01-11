@@ -2,7 +2,7 @@
   <v-tooltip top>
     <template v-slot:activator="{ on }">
       <v-btn :disabled="isButtonDisabled" text icon v-on="on" @click="copyToClipboard">
-        <v-icon>mdi-content-copy</v-icon>
+        <v-icon>{{ svgPath }}</v-icon>
       </v-btn>
     </template>
     <span>Copy</span>
@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import { mdiContentCopy } from '@mdi/js';
+
 export default {
   name: 'CopyToClipboardButton',
   props: {
@@ -18,6 +20,9 @@ export default {
       default: '',
     },
   },
+  data: () => ({
+    svgPath: mdiContentCopy,
+  }),
   computed: {
     isButtonDisabled() {
       return !this.text;

@@ -6,15 +6,19 @@
     text
     @click="changeLanguages"
   >
-    <v-icon>mdi-swap-horizontal</v-icon>
+    <v-icon>{{ svgPath }}</v-icon>
   </v-btn>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import { mdiSwapHorizontal } from '@mdi/js';
 
 export default {
   name: 'ChangeLanguagesButton',
+  data: () => ({
+    svgPath: mdiSwapHorizontal,
+  }),
   computed: {
     ...mapState('translate', ['sourceLangCode']),
     isDisabled() {
