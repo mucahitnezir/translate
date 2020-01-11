@@ -18,7 +18,7 @@ export default {
           return credential.user;
         });
     },
-    autoLogin({ commit }, user) {
+    setCurrentUser({ commit }, user) {
       commit('setUser', user);
     },
     logOut({ commit }) {

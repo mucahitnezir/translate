@@ -22,8 +22,9 @@
 import Header from './components/Layout/Header.vue';
 import Sidebar from './components/Layout/Sidebar.vue';
 import Footer from './components/Layout/Footer.vue';
-import NotificationContainer from './components/Notification/NotificationContainer.vue';
+
 import SnackBar from './components/Notification/SnackBar.vue';
+import NotificationContainer from './components/Notification/NotificationContainer.vue';
 
 export default {
   name: 'App',
