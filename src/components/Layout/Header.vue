@@ -13,24 +13,29 @@
     </v-toolbar-title>
     <v-spacer />
     <v-toolbar-items>
-      <template v-if="!isLoggedIn">
+      <template v-if="!isAuthenticated">
         <v-btn
           :to="{ name: 'login' }"
-          color="primary"
-          rounded
           text
+          icon
         >
-          Login
+          <v-icon>{{ icons.mdiLoginVariant }}</v-icon>
         </v-btn>
       </template>
       <template v-else>
         <v-btn
-          color="primary"
-          rounded
+          :to="{ name: 'profile' }"
           text
+          icon
+        >
+          <v-icon>{{ icons.mdiAccount }}</v-icon>
+        </v-btn>
+        <v-btn
+          text
+          icon
           @click="onLogOut"
         >
-          Logout
+          <v-icon>{{ icons.mdiLogoutVariant }}</v-icon>
         </v-btn>
       </template>
     </v-toolbar-items>
@@ -38,14 +43,22 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import { mdiLoginVariant, mdiLogoutVariant, mdiAccount } from '@mdi/js';
+
 export default {
   name: 'Header',
+  data: () => ({
+    icons: {
+      mdiLoginVariant,
+      mdiLogoutVariant,
+      mdiAccount,
+    },
+  }),
   computed: {
+    ...mapGetters('auth', ['isAuthenticated']),
     drawerStatus() {
       return this.$store.state.drawer;
-    },
-    isLoggedIn() {
-      return this.$store.getters['auth/isAuthenticated'];
     },
   },
   methods: {

@@ -8,6 +8,10 @@ import Login from '../views/Login.vue';
 import About from '../views/About.vue';
 import NotFound from '../views/NotFound.vue';
 
+import Profile from '../views/Profile.vue';
+import ProfileIndex from '../views/Profile/ProfileIndex.vue';
+import ProfileEdit from '../views/Profile/ProfileEdit.vue';
+
 Vue.use(Router);
 
 const router = new Router({
@@ -31,6 +35,25 @@ const router = new Router({
       path: '/about',
       name: 'about',
       component: About,
+    },
+    {
+      path: '/profile',
+      component: Profile,
+      children: [
+        {
+          path: '',
+          name: 'profile',
+          component: ProfileIndex,
+        },
+        {
+          path: 'edit',
+          name: 'profile-edit',
+          component: ProfileEdit,
+        },
+      ],
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: '*',

@@ -4,7 +4,7 @@
       <h2 class="text-center">Login Page</h2>
     </v-col>
     <v-col sm="6" offset-sm="3">
-      <v-card>
+      <v-card class="mb-4">
         <v-card-text>
           <v-form
             v-model="formValid"
@@ -40,6 +40,7 @@
           </v-form>
         </v-card-text>
       </v-card>
+      <PasswordResetForm />
     </v-col>
   </v-row>
 </template>
@@ -47,8 +48,13 @@
 <script>
 import { mdiEye, mdiEyeOff } from '@mdi/js';
 
+import PasswordResetForm from '../components/Auth/PasswordResetForm.vue';
+
 export default {
   name: 'Login',
+  components: {
+    PasswordResetForm,
+  },
   data: () => ({
     icons: {
       mdiEye,
@@ -76,22 +82,21 @@ export default {
       this.isLoading = true;
       this.$store.dispatch('auth/login', this.formData)
         .then(() => {
-          // Disable loading
-          this.isLoading = false;
           // Redirect user
           const { redirect } = this.$route.query;
           const redirectedUrl = redirect || { name: 'home' };
           this.$router.push(redirectedUrl);
         })
         .catch((err) => {
-          // Disable loading
-          this.isLoading = false;
           // Create notification
           const notification = {
             type: 'error',
             message: err.message,
           };
           this.$store.dispatch('notification/add', notification);
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
   },

@@ -21,6 +21,8 @@
 <script>
 import { load } from 'webfontloader';
 
+import { auth } from './firebase';
+
 import Header from './components/Layout/Header.vue';
 import Sidebar from './components/Layout/Sidebar.vue';
 import Footer from './components/Layout/Footer.vue';
@@ -43,6 +45,11 @@ export default {
       google: {
         families: ['Roboto:100,300,400,500,700,900&display=swap'],
       },
+    });
+  },
+  mounted() {
+    auth.onAuthStateChanged((user) => {
+      this.$store.dispatch('auth/setCurrentUser', user);
     });
   },
 };
