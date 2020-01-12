@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { load } from 'webfontloader';
+
 import Header from './components/Layout/Header.vue';
 import Sidebar from './components/Layout/Sidebar.vue';
 import Footer from './components/Layout/Footer.vue';
@@ -36,6 +38,13 @@ export default {
     SnackBar,
   },
   data: () => ({}),
+  created() {
+    load({
+      google: {
+        families: ['Roboto:100,300,400,500,700,900&display=swap'],
+      },
+    });
+  },
 };
 </script>
 
