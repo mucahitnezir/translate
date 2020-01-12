@@ -1,4 +1,14 @@
-# translate-app
+[![Build Status](https://travis-ci.com/mucahitnezir/translate.svg?token=DqbmUFcRjxqJSycXzqVx&branch=master)](https://travis-ci.com/mucahitnezir/translate)
+
+# Translate App
+
+Technologies used in this project:
+1. Vue.js
+2. Vuex
+3. Vuetify
+4. Firebase
+5. AWS Translate
+6. AWS Polly
 
 ## Project setup
 ```

@@ -1,9 +1,9 @@
 <template>
-  <v-layout wrap>
-    <v-flex xs12 class="mb-3">
+  <v-row>
+    <v-col cols="12">
       <h2 class="text-center">Login Page</h2>
-    </v-flex>
-    <v-flex xs12 sm6 offset-sm3>
+    </v-col>
+    <v-col sm="6" offset-sm="3">
       <v-card>
         <v-card-text>
           <v-form
@@ -19,7 +19,7 @@
             />
             <v-text-field
               v-model="formData.password"
-              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              :append-icon="showPassword ? icons.mdiEye : icons.mdiEyeOff"
               :rules="rules.password"
               :type="showPassword ? 'text' : 'password'"
               label="Password"
@@ -40,14 +40,20 @@
           </v-form>
         </v-card-text>
       </v-card>
-    </v-flex>
-  </v-layout>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
+import { mdiEye, mdiEyeOff } from '@mdi/js';
+
 export default {
   name: 'Login',
   data: () => ({
+    icons: {
+      mdiEye,
+      mdiEyeOff,
+    },
     formData: {
       email: '',
       password: '',
