@@ -1,7 +1,6 @@
 <template>
   <v-row>
     <v-col cols="12" md="3">
-      <v-img v-if="authUser.photoURL" :src="authUser.photoURL" :alt="authUser.displayName" />
       <v-list color="purple" dark :tile="false">
         <v-list-item :to="{ name: 'profile' }" :exact="true">
           <v-list-item-title>Profile Detail</v-list-item-title>

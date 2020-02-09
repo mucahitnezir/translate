@@ -9,12 +9,10 @@
       <v-card-text>
         <v-text-field
           v-model="formData.email"
+          :append-icon="icons.mdiEmail"
           :rules="[rules.required]"
           label="Email Address"
-          hide-details
         />
-      </v-card-text>
-      <v-card-actions>
         <v-btn
           :loading="isLoading"
           :disabled="!formValid"
@@ -24,13 +22,14 @@
         >
           Update
         </v-btn>
-      </v-card-actions>
+      </v-card-text>
     </v-card>
   </v-form>
 </template>
 
 <script>
 import { cloneDeep } from 'lodash';
+import { mdiEmail } from '@mdi/js';
 
 export default {
   name: 'UpdateEmailForm',
@@ -40,6 +39,9 @@ export default {
     return {
       isLoading: false,
       formValid: false,
+      icons: {
+        mdiEmail,
+      },
       formData: {
         email: authUser.email,
       },

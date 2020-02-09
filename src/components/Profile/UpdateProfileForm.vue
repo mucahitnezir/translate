@@ -12,13 +12,6 @@
           :rules="[rules.required]"
           label="Display Name"
         />
-        <v-text-field
-          v-model="formData.photoURL"
-          label="Photo URL"
-          hide-details
-        />
-      </v-card-text>
-      <v-card-actions>
         <v-btn
           :loading="isLoading"
           :disabled="!formValid"
@@ -28,7 +21,7 @@
         >
           Update
         </v-btn>
-      </v-card-actions>
+      </v-card-text>
     </v-card>
   </v-form>
 </template>
@@ -46,7 +39,6 @@ export default {
       formValid: false,
       formData: {
         displayName: authUser.displayName,
-        photoURL: authUser.photoURL,
       },
       rules: {
         required: v => !!v || 'This field is required',

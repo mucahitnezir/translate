@@ -13,11 +13,8 @@
           :rules="[rules.required]"
           :type="showPassword ? 'text' : 'password'"
           label="Password"
-          hide-details
           @click:append="showPassword = !showPassword"
         />
-      </v-card-text>
-      <v-card-actions>
         <v-btn
           :loading="isLoading"
           :disabled="!formValid"
@@ -27,7 +24,7 @@
         >
           Update
         </v-btn>
-      </v-card-actions>
+      </v-card-text>
     </v-card>
   </v-form>
 </template>
