@@ -1,7 +1,8 @@
-import store from '../store';
-import { auth } from '../firebase';
+// import store from '../store';
+// import { auth } from '../firebase';
 
 export default async (to, from, next) => {
+  /*
   // Find that user is authenticated
   const { user } = store.state.auth;
   if (user === undefined) {
@@ -24,6 +25,7 @@ export default async (to, from, next) => {
       query: { redirect: to.fullPath },
     });
   }
+  */
 
   return next();
 };
