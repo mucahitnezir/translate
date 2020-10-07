@@ -37,12 +37,12 @@ const router = new Router({
         {
           path: '',
           name: 'profile',
-          component: () => import(/* webpackChunkName: "profile-index" */ '../views/Profile/ProfileIndex'),
+          component: () => import(/* webpackChunkName: "profile-index" */ '../views/Profile/Index'),
         },
         {
           path: 'edit',
           name: 'profile-edit',
-          component: () => import(/* webpackChunkName: "profile-edit" */ '../views/Profile/ProfileEdit'),
+          component: () => import(/* webpackChunkName: "profile-edit" */ '../views/Profile/Edit'),
         },
       ],
       meta: {

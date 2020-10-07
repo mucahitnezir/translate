@@ -19,7 +19,7 @@
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'ProfileIndex',
+  name: 'Index',
   computed: {
     ...mapGetters('auth', ['authUser']),
   },
