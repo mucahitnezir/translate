@@ -1,19 +1,19 @@
 <template>
-  <v-tooltip top>
-    <template v-slot:activator="{ on }">
-      <v-btn :disabled="isButtonDisabled" text icon v-on="on" @click="copyToClipboard">
-        <v-icon>{{ svgPath }}</v-icon>
-      </v-btn>
-    </template>
-    <span>Copy</span>
-  </v-tooltip>
+  <ActionButton
+    :disabled="isButtonDisabled"
+    :icon="svgPath"
+    tooltip="Copy"
+    @click="copyToClipboard"
+  />
 </template>
 
 <script>
 import { mdiContentCopy } from '@mdi/js';
+import ActionButton from '@/components/Shared/ActionButton.vue';
 
 export default {
   name: 'CopyToClipboardButton',
+  components: { ActionButton },
   props: {
     text: {
       type: String,

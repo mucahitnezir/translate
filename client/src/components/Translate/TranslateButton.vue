@@ -1,19 +1,20 @@
 <template>
-  <v-tooltip top>
-    <template v-slot:activator="{ on }">
-      <v-btn :disabled="!sourceText" icon :loading="loading" text v-on="on" @click="onTranslate">
-        <v-icon>{{ svgPath }}</v-icon>
-      </v-btn>
-    </template>
-    <span>Translate</span>
-  </v-tooltip>
+  <ActionButton
+    :disabled="!sourceText"
+    :icon="svgPath"
+    :loading="loading"
+    tooltip="Translate"
+    @click="onTranslate"
+  />
 </template>
 
 <script>
 import { mdiSend } from '@mdi/js';
+import ActionButton from '@/components/Shared/ActionButton.vue';
 
 export default {
   name: 'TranslateButton',
+  components: { ActionButton },
   data: () => ({
     svgPath: mdiSend,
   }),

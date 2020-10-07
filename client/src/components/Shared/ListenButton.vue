@@ -1,12 +1,11 @@
 <template>
-  <v-tooltip top>
-    <template v-slot:activator="{ on }">
-      <v-btn :disabled="isDisabled" :loading="loading" text icon v-on="on" @click="onSpeechText">
-        <v-icon>{{ svgPath }}</v-icon>
-      </v-btn>
-    </template>
-    <span>Listen</span>
-  </v-tooltip>
+  <ActionButton
+    :disabled="isDisabled"
+    :icon="svgPath"
+    :loading="loading"
+    tooltip="Listen"
+    @click="onSpeechText"
+  />
 </template>
 
 <script>
@@ -15,8 +14,11 @@ import { mdiVolumeHigh } from '@mdi/js';
 import { functions } from '@/firebase';
 import { getVoiceIdFromLangCode } from '@/services/speech';
 
+import ActionButton from '@/components/Shared/ActionButton.vue';
+
 export default {
-  name: 'Listen',
+  name: 'ListenButton',
+  components: { ActionButton },
   props: {
     langCode: {
       type: String,
