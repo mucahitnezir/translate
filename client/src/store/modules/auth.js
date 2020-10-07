@@ -6,7 +6,7 @@ export default {
     user: undefined,
   },
   mutations: {
-    setUser(state, user) {
+    SET_USER(state, user) {
       state.user = user;
     },
   },
@@ -14,16 +14,16 @@ export default {
     login({ commit }, data) {
       return auth.signInWithEmailAndPassword(data.email, data.password)
         .then((credential) => {
-          commit('setUser', credential.user);
+          commit('SET_USER', credential.user);
           return credential.user;
         });
     },
     setCurrentUser({ commit }, user) {
-      commit('setUser', user);
+      commit('SET_USER', user);
     },
     logOut({ commit }) {
       return auth.signOut()
-        .then(() => commit('setUser', null));
+        .then(() => commit('SET_USER', null));
     },
     updateProfile({ state, dispatch, commit }, payload) {
       return state.user.updateProfile(payload)
