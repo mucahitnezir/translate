@@ -42,7 +42,7 @@ const router = new Router({
         {
           path: 'edit',
           name: 'profile-edit',
-          component: () => import(/* webpackChunkName: "about" */ '../views/Profile/ProfileEdit'),
+          component: () => import(/* webpackChunkName: "profile-edit" */ '../views/Profile/ProfileEdit'),
         },
       ],
       meta: {
