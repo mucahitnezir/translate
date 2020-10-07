@@ -6,24 +6,24 @@
       <TargetLanguageSelect class="flex-1" />
     </div>
     <v-card class="mb-3">
-      <v-layout wrap>
-        <v-flex xs12 md6>
+      <v-row no-gutters>
+        <v-col cols="12" md="6">
           <div class="d-flex flex-column hp-100">
             <div class="bg-white flex-grow-1">
               <SourceInput />
             </div>
             <SourceActions />
           </div>
-        </v-flex>
-        <v-flex xs12 md6>
+        </v-col>
+        <v-col cols="12" md="6">
           <div class="d-flex flex-column hp-100">
             <div class="bg-target-gray flex-grow-1">
               <TargetInput />
             </div>
             <TargetActions />
           </div>
-        </v-flex>
-      </v-layout>
+        </v-col>
+      </v-row>
     </v-card>
   </div>
 </template>
