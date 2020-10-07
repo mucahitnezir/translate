@@ -8,9 +8,9 @@
       <h5>Email</h5>
       <p>{{ authUser.email }} {{ authUser.emailVerified ? 'Confirmed' : 'Not confirmed' }}</p>
       <h5>Created At</h5>
-      <p>{{ authUser.metadata.creationTime }}</p>
+      <p>{{ authUser.metadata.creationTime | datetime }}</p>
       <h5>Last Login</h5>
-      <p class="mb-0">{{ authUser.metadata.lastSignInTime }}</p>
+      <p class="mb-0">{{ authUser.metadata.lastSignInTime | datetime }}</p>
     </v-card-text>
   </v-card>
 </template>
