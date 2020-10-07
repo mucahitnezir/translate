@@ -52,6 +52,7 @@ exports.translate = functions.region('europe-west3').https.onCall(async (data, c
         sourceText: text,
         targetText: response.TranslatedText,
         userId: context.auth ? context.auth.uid : null,
+        translationSource: 'aws',
         createdAt: admin.firestore.Timestamp.now(),
       });
       // Return response
