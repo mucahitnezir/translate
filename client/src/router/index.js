@@ -3,14 +3,14 @@ import Router from 'vue-router';
 
 import AuthGuard from './authGuard';
 
-import Home from '../views/Home.vue';
-import Login from '../views/Login.vue';
-import About from '../views/About.vue';
-import NotFound from '../views/NotFound.vue';
+import Home from '@/views/Home.vue';
+import Login from '@/views/Login.vue';
+import About from '@/views/About.vue';
+import NotFound from '@/views/NotFound.vue';
 
-import Profile from '../views/Profile.vue';
-import ProfileIndex from '../views/Profile/ProfileIndex.vue';
-import ProfileEdit from '../views/Profile/ProfileEdit.vue';
+import Profile from '@/views/Profile.vue';
+import ProfileIndex from '@/views/Profile/ProfileIndex.vue';
+import ProfileEdit from '@/views/Profile/ProfileEdit.vue';
 
 Vue.use(Router);
 

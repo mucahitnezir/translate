@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import UpdateProfileForm from '../../components/Profile/UpdateProfileForm.vue';
-import UpdateEmailForm from '../../components/Profile/UpdateEmailForm.vue';
-import UpdatePasswordForm from '../../components/Profile/UpdatePasswordForm.vue';
+import UpdateProfileForm from '@/components/Profile/UpdateProfileForm.vue';
+import UpdateEmailForm from '@/components/Profile/UpdateEmailForm.vue';
+import UpdatePasswordForm from '@/components/Profile/UpdatePasswordForm.vue';
 
 export default {
   name: 'ProfileEdit',

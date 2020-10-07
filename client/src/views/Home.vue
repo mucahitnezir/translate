@@ -29,13 +29,13 @@
 </template>
 
 <script>
-import ChangeLanguagesButton from '../components/Translate/ChangeLanguagesButton.vue';
-import SourceActions from '../components/Translate/SourceActions.vue';
-import SourceInput from '../components/Translate/SourceInput.vue';
-import TargetActions from '../components/Translate/TargetActions.vue';
-import TargetInput from '../components/Translate/TargetInput.vue';
-import SourceLanguageSelect from '../components/Translate/SourceLanguageSelect.vue';
-import TargetLanguageSelect from '../components/Translate/TargetLanguageSelect.vue';
+import ChangeLanguagesButton from '@/components/Translate/ChangeLanguagesButton.vue';
+import SourceActions from '@/components/Translate/SourceActions.vue';
+import SourceInput from '@/components/Translate/SourceInput.vue';
+import TargetActions from '@/components/Translate/TargetActions.vue';
+import TargetInput from '@/components/Translate/TargetInput.vue';
+import SourceLanguageSelect from '@/components/Translate/SourceLanguageSelect.vue';
+import TargetLanguageSelect from '@/components/Translate/TargetLanguageSelect.vue';
 
 export default {
   name: 'Home',

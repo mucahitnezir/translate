@@ -48,7 +48,7 @@
 <script>
 import { mdiEye, mdiEyeOff } from '@mdi/js';
 
-import PasswordResetForm from '../components/Auth/PasswordResetForm.vue';
+import PasswordResetForm from '@/components/Auth/PasswordResetForm.vue';
 
 export default {
   name: 'Login',
