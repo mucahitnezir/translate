@@ -1,16 +1,21 @@
-import { sourceLanguages, targetLanguages, translateText } from '../../services/translate';
+import { sourceLanguages, targetLanguages } from '@/services/translate';
+import { functions } from '@/firebase';
 
 export default {
   namespaced: true,
   state: {
     targetLanguages,
     sourceLanguages,
+    isTranslating: false,
     sourceLangCode: 'auto',
     targetLangCode: 'tr',
     sourceText: null,
     translatedText: null,
   },
   mutations: {
+    SET_TRANSLATING(state, isTranslating) {
+      state.isTranslating = isTranslating;
+    },
     SET_SOURCE_LANG_CODE(state, langCode) {
       state.sourceLangCode = langCode;
     },
@@ -52,23 +57,41 @@ export default {
       commit('SET_TRANSLATED_TEXT', null);
     },
     translate({ commit, state, dispatch }) {
-      const params = {
-        SourceLanguageCode: state.sourceLangCode,
-        TargetLanguageCode: state.targetLangCode,
-        Text: state.sourceText,
-      };
-      translateText(params)
-        .then((response) => {
-          commit('SET_TRANSLATED_TEXT', response.TranslatedText);
-          commit('SET_SOURCE_LANG_CODE', response.SourceLanguageCode);
-        })
-        .catch((err) => {
-          const notification = {
-            type: 'error',
-            message: err.message,
-          };
-          dispatch('notification/add', notification, { root: true });
-        });
+      const sourceText = state.sourceText.trim();
+      if (sourceText.length > 100) {
+        const notification = {
+          type: 'error',
+          message: 'Maximum allowed character is 100.',
+        };
+        dispatch('notification/add', notification, { root: true });
+        return;
+      }
+      if (sourceText) {
+        const params = {
+          sourceLangCode: state.sourceLangCode,
+          targetLangCode: state.targetLangCode,
+          text: sourceText,
+        };
+        commit('SET_TRANSLATING', true);
+        return functions.httpsCallable('translate')(params)
+          .then((response) => {
+            commit('SET_TRANSLATED_TEXT', response.data.translatedText);
+            commit('SET_SOURCE_LANG_CODE', response.data.sourceLangCode);
+            return response;
+          })
+          .catch((err) => {
+            const notification = {
+              type: 'error',
+              message: err.message,
+            };
+            dispatch('notification/add', notification, { root: true });
+          })
+          .finally(() => {
+            commit('SET_TRANSLATING', false);
+          });
+      } else {
+        console.log('yok');
+      }
     },
   },
   getters: {},

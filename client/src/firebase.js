@@ -1,8 +1,10 @@
-import firebase from 'firebase/app';
+import { initializeApp } from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/functions';
 
-const app = firebase.initializeApp({
-  apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
+const app = initializeApp({
+  apiKey: process.env.VUE_APP_FB_API_KEY,
+  projectId: process.env.VUE_APP_FB_PROJECT_ID,
 });
 
 const myAuth = app.auth();
@@ -13,5 +15,6 @@ myAuth.getCurrentUser = () => new Promise((resolve) => {
   });
 });
 
-// eslint-disable-next-line import/prefer-default-export
 export const auth = myAuth;
+
+export const functions = app.functions('europe-west3');

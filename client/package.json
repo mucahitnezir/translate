@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@mdi/js": "^4.7.95",
-    "aws-sdk": "^2.557.0",
     "core-js": "^2.6.5",
     "firebase": "^7.2.2",
     "lodash": "^4.17.15",
