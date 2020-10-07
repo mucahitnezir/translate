@@ -1,7 +1,7 @@
 <template>
   <v-tooltip top>
     <template v-slot:activator="{ on }">
-      <v-btn :disabled="isDisabled" text icon v-on="on" @click="onSpeechText">
+      <v-btn :disabled="isDisabled" :loading="loading" text icon v-on="on" @click="onSpeechText">
         <v-icon>{{ svgPath }}</v-icon>
       </v-btn>
     </template>
@@ -12,7 +12,8 @@
 <script>
 import { mdiVolumeHigh } from '@mdi/js';
 
-import { getVoiceIdFromLangCode, speechText } from '../../services/speech';
+import { functions } from '@/firebase';
+import { getVoiceIdFromLangCode } from '@/services/speech';
 
 export default {
   name: 'Listen',
@@ -28,6 +29,7 @@ export default {
   },
   data: () => ({
     svgPath: mdiVolumeHigh,
+    loading: false,
   }),
   computed: {
     isDisabled() {
@@ -39,14 +41,18 @@ export default {
     onSpeechText() {
       const voiceId = getVoiceIdFromLangCode(this.langCode);
       if (voiceId) {
-        const params = {
-          OutputFormat: 'mp3',
-          Text: this.text,
-          TextType: 'text',
-          VoiceId: voiceId,
-        };
-        speechText(params)
-          .then((audio) => {
+        this.loading = true;
+
+        const params = { voiceId, text: this.text };
+        functions.httpsCallable('speechText')(params)
+          .then((response) => {
+            const audioStream = response.data.AudioStream;
+            const uInt8Array = new Uint8Array(audioStream);
+            const arrayBuffer = uInt8Array.buffer;
+            const blob = new Blob([arrayBuffer], { type: response.data.ContentType });
+
+            const url = URL.createObjectURL(blob);
+            const audio = new Audio(url);
             audio.play();
           })
           .catch((err) => {
@@ -55,6 +61,9 @@ export default {
               message: err.message,
             };
             this.$store.dispatch('notification/add', notification);
+          })
+          .finally(() => {
+            this.loading = false;
           });
       }
     },
