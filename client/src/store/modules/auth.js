@@ -56,6 +56,16 @@ export default {
           dispatch('notification/setSnackText', err.message, { root: true });
         });
     },
+    sendEmailVerification({ state, dispatch }) {
+      return state.user.sendEmailVerification()
+        .then(() => {
+          const message = 'Email sent!';
+          dispatch('notification/setSnackText', message, { root: true });
+        })
+        .catch((err) => {
+          dispatch('notification/setSnackText', err.message, { root: true });
+        });
+    },
   },
   getters: {
     isAuthenticated: state => !!state.user,
