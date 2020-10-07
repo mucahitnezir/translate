@@ -1,9 +1,5 @@
 <template>
-  <v-app-bar
-    app
-    clipped-left
-    flat
-  >
+  <v-app-bar app clipped-left flat>
     <v-app-bar-nav-icon @click.stop="changeDrawerStatus" />
 
     <v-toolbar-title class="pl-0">
@@ -11,34 +7,34 @@
         Translate
       </router-link>
     </v-toolbar-title>
+
     <v-spacer />
-    <v-toolbar-items>
-      <template v-if="!isAuthenticated">
-        <v-btn
-          :to="{ name: 'login' }"
-          text
-          icon
-        >
-          <v-icon>{{ icons.mdiLoginVariant }}</v-icon>
-        </v-btn>
-      </template>
-      <template v-else>
-        <v-btn
-          :to="{ name: 'profile' }"
-          text
-          icon
-        >
-          <v-icon>{{ icons.mdiAccount }}</v-icon>
-        </v-btn>
-        <v-btn
-          text
-          icon
-          @click="onLogOut"
-        >
-          <v-icon>{{ icons.mdiLogoutVariant }}</v-icon>
-        </v-btn>
-      </template>
-    </v-toolbar-items>
+
+    <template v-if="!isAuthenticated">
+      <v-btn
+        :to="{ name: 'login' }"
+        text
+        icon
+      >
+        <v-icon>{{ icons.mdiLoginVariant }}</v-icon>
+      </v-btn>
+    </template>
+    <template v-else>
+      <v-btn
+        icon
+        text
+        :to="{ name: 'profile' }"
+      >
+        <v-icon>{{ icons.mdiAccount }}</v-icon>
+      </v-btn>
+      <v-btn
+        icon
+        text
+        @click="onLogOut"
+      >
+        <v-icon>{{ icons.mdiLogoutVariant }}</v-icon>
+      </v-btn>
+    </template>
   </v-app-bar>
 </template>
 

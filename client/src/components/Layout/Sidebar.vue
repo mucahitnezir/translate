@@ -6,10 +6,7 @@
     temporary
     disable-resize-watcher
   >
-    <v-list
-      dense
-      nav
-    >
+    <v-list dense nav>
       <v-list-item
         v-for="item in menuItems"
         :key="item.title"
