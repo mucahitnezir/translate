@@ -28,7 +28,7 @@ export default {
     updateProfile({ state, dispatch, commit }, payload) {
       return state.user.updateProfile(payload)
         .then(() => {
-          commit('setUser', auth.currentUser);
+          commit('SET_USER', auth.currentUser);
           const message = 'Your profile updated successfully!';
           dispatch('notification/setSnackText', message, { root: true });
         })
