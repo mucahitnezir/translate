@@ -72,8 +72,10 @@ export default {
           targetLangCode: state.targetLangCode,
           text: sourceText,
         };
+
         commit('SET_TRANSLATING', true);
-        return functions.httpsCallable('translate')(params)
+
+        functions.httpsCallable('translate')(params)
           .then((response) => {
             commit('SET_TRANSLATED_TEXT', response.data.translatedText);
             commit('SET_SOURCE_LANG_CODE', response.data.sourceLangCode);
@@ -89,8 +91,6 @@ export default {
           .finally(() => {
             commit('SET_TRANSLATING', false);
           });
-      } else {
-        console.log('yok');
       }
     },
   },
