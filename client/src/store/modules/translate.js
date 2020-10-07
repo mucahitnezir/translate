@@ -59,11 +59,7 @@ export default {
     translate({ commit, state, dispatch }) {
       const sourceText = state.sourceText.trim();
       if (sourceText.length > 100) {
-        const notification = {
-          type: 'error',
-          message: 'Maximum allowed character is 100.',
-        };
-        dispatch('notification/add', notification, { root: true });
+        dispatch('notification/setSnackText', 'Maximum allowed character is 100.', { root: true });
         return;
       }
       if (sourceText) {
@@ -82,11 +78,7 @@ export default {
             return response;
           })
           .catch((err) => {
-            const notification = {
-              type: 'error',
-              message: err.message,
-            };
-            dispatch('notification/add', notification, { root: true });
+            dispatch('notification/setSnackText', err.message, { root: true });
           })
           .finally(() => {
             commit('SET_TRANSLATING', false);

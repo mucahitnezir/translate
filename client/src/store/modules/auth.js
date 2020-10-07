@@ -33,11 +33,7 @@ export default {
           dispatch('notification/setSnackText', message, { root: true });
         })
         .catch((err) => {
-          const notification = {
-            type: 'error',
-            message: err.message,
-          };
-          dispatch('notification/add', notification, { root: true });
+          dispatch('notification/setSnackText', err.message, { root: true });
         });
     },
     updateEmail({ state, dispatch }, email) {
@@ -47,11 +43,7 @@ export default {
           dispatch('notification/setSnackText', message, { root: true });
         })
         .catch((err) => {
-          const notification = {
-            type: 'error',
-            message: err.message,
-          };
-          dispatch('notification/add', notification, { root: true });
+          dispatch('notification/setSnackText', err.message, { root: true });
         });
     },
     updatePassword({ state, dispatch }, password) {
@@ -61,11 +53,7 @@ export default {
           dispatch('notification/setSnackText', message, { root: true });
         })
         .catch((err) => {
-          const notification = {
-            type: 'error',
-            message: err.message,
-          };
-          dispatch('notification/add', notification, { root: true });
+          dispatch('notification/setSnackText', err.message, { root: true });
         });
     },
   },

@@ -89,11 +89,7 @@ export default {
         })
         .catch((err) => {
           // Create notification
-          const notification = {
-            type: 'error',
-            message: err.message,
-          };
-          this.$store.dispatch('notification/add', notification);
+          this.$store.dispatch('notification/setSnackText', err.message);
         })
         .finally(() => {
           this.isLoading = false;

@@ -71,11 +71,7 @@ export default {
           this.$router.push({ name: 'login' });
         })
         .catch((err) => {
-          const notification = {
-            type: 'error',
-            message: err.message,
-          };
-          this.$store.dispatch('notification/add', notification);
+          this.$store.dispatch('notification/setSnackText', err.message);
         });
     },
   },

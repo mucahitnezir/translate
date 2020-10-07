@@ -58,11 +58,7 @@ export default {
             audio.play();
           })
           .catch((err) => {
-            const notification = {
-              type: 'error',
-              message: err.message,
-            };
-            this.$store.dispatch('notification/add', notification);
+            this.$store.dispatch('notification/setSnackText', err.message);
           })
           .finally(() => {
             this.loading = false;

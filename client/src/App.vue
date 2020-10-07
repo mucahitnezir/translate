@@ -6,8 +6,6 @@
 
     <v-content>
       <v-container>
-        <NotificationContainer />
-
         <router-view/>
       </v-container>
     </v-content>
@@ -28,7 +26,6 @@ import Sidebar from './components/Layout/Sidebar.vue';
 import Footer from './components/Layout/Footer.vue';
 
 import SnackBar from './components/Notification/SnackBar.vue';
-import NotificationContainer from './components/Notification/NotificationContainer.vue';
 
 export default {
   name: 'App',
@@ -36,7 +33,6 @@ export default {
     Header,
     Sidebar,
     Footer,
-    NotificationContainer,
     SnackBar,
   },
   data: () => ({}),
