@@ -13,6 +13,7 @@
       <v-list-item
         v-for="item in menuItems"
         :key="item.title"
+        :to="item.to"
         link
       >
         <v-list-item-content>
@@ -29,10 +30,6 @@ export default {
   data: () => ({
     menuItems: [
       { title: 'About Translate', to: { name: 'about' } },
-      { title: 'Community', to: { name: 'about' } },
-      { title: 'Security Policies', to: { name: 'about' } },
-      { title: 'Support', to: { name: 'about' } },
-      { title: 'Send Feedback', to: { name: 'about' } },
     ],
   }),
   computed: {

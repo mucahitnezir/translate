@@ -4,13 +4,7 @@ import Router from 'vue-router';
 import AuthGuard from './authGuard';
 
 import Home from '@/views/Home.vue';
-import Login from '@/views/Login.vue';
-import About from '@/views/About.vue';
 import NotFound from '@/views/NotFound.vue';
-
-import Profile from '@/views/Profile.vue';
-import ProfileIndex from '@/views/Profile/ProfileIndex.vue';
-import ProfileEdit from '@/views/Profile/ProfileEdit.vue';
 
 Vue.use(Router);
 
@@ -26,7 +20,7 @@ const router = new Router({
     {
       path: '/login',
       name: 'login',
-      component: Login,
+      component: () => import(/* webpackChunkName: "login" */ '../views/Login'),
       meta: {
         requiresNoAuth: true,
       },
@@ -34,21 +28,21 @@ const router = new Router({
     {
       path: '/about',
       name: 'about',
-      component: About,
+      component: () => import(/* webpackChunkName: "about" */ '../views/About'),
     },
     {
       path: '/profile',
-      component: Profile,
+      component: () => import(/* webpackChunkName: "profile" */ '../views/Profile'),
       children: [
         {
           path: '',
           name: 'profile',
-          component: ProfileIndex,
+          component: () => import(/* webpackChunkName: "profile-index" */ '../views/Profile/ProfileIndex'),
         },
         {
           path: 'edit',
           name: 'profile-edit',
-          component: ProfileEdit,
+          component: () => import(/* webpackChunkName: "about" */ '../views/Profile/ProfileEdit'),
         },
       ],
       meta: {
