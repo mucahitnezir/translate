@@ -23,16 +23,7 @@
               label="Email Address"
               required
             />
-            <v-text-field
-              v-model="formData.password"
-              :append-icon="showPassword ? icons.mdiEye : icons.mdiEyeOff"
-              :rules="rules.password"
-              :type="showPassword ? 'text' : 'password'"
-              label="Password"
-              class="input-group--focused"
-              required
-              @click:append="showPassword = !showPassword"
-            />
+            <PasswordInput v-model="formData.password" :rules="rules.password" />
             <div class="d-flex">
               <v-spacer />
               <v-btn
@@ -51,17 +42,13 @@
 </template>
 
 <script>
-import { mdiEye, mdiEyeOff } from '@mdi/js';
-
 import { functions } from '@/firebase';
+import PasswordInput from '@/components/Shared/PasswordInput.vue';
 
 export default {
   name: 'Register',
+  components: { PasswordInput },
   data: () => ({
-    icons: {
-      mdiEye,
-      mdiEyeOff,
-    },
     formData: {
       email: '',
       displayName: '',
@@ -81,7 +68,6 @@ export default {
         v => !!v || 'Display name is required',
       ],
     },
-    showPassword: false,
   }),
   methods: {
     onFormSubmit() {

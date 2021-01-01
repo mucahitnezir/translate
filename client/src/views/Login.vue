@@ -17,16 +17,7 @@
               label="Email Address"
               required
             />
-            <v-text-field
-              v-model="formData.password"
-              :append-icon="showPassword ? icons.mdiEye : icons.mdiEyeOff"
-              :rules="rules.password"
-              :type="showPassword ? 'text' : 'password'"
-              label="Password"
-              class="input-group--focused"
-              required
-              @click:append="showPassword = !showPassword"
-            />
+            <PasswordInput v-model="formData.password" :rules="rules.password" />
             <div class="d-flex">
               <v-spacer />
               <v-btn
@@ -48,18 +39,16 @@
 <script>
 import { mdiEye, mdiEyeOff } from '@mdi/js';
 
+import PasswordInput from '@/components/Shared/PasswordInput.vue';
 import PasswordResetForm from '@/components/Auth/PasswordResetForm.vue';
 
 export default {
   name: 'Login',
   components: {
+    PasswordInput,
     PasswordResetForm,
   },
   data: () => ({
-    icons: {
-      mdiEye,
-      mdiEyeOff,
-    },
     formData: {
       email: '',
       password: '',
@@ -75,7 +64,6 @@ export default {
         v => !!v || 'Password is required',
       ],
     },
-    showPassword: false,
   }),
   methods: {
     onFormSubmit() {
