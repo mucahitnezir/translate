@@ -1,8 +1,8 @@
-import { initializeApp } from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/functions';
 
-const app = initializeApp({
+const app = firebase.initializeApp({
   apiKey: process.env.VUE_APP_FB_API_KEY,
   projectId: process.env.VUE_APP_FB_PROJECT_ID,
 });
