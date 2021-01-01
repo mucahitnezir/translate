@@ -1,44 +1,30 @@
 <template>
-  <v-row>
-    <v-col cols="12">
-      <h2 class="text-center">Login Page</h2>
-    </v-col>
-    <v-col sm="6" offset-sm="3">
-      <v-card class="mb-4">
-        <v-card-text>
-          <v-form
-            v-model="formValid"
-            ref="form"
-            @submit.prevent="onFormSubmit"
-          >
-            <v-text-field
-              v-model="formData.email"
-              :rules="rules.email"
-              label="Email Address"
-              required
-            />
-            <PasswordInput v-model="formData.password" :rules="rules.password" />
-            <div class="d-flex">
-              <v-spacer />
-              <v-btn
-                :disabled="!formValid"
-                :loading="isLoading"
-                type="submit"
-                color="primary"
-                depressed
-              >Login</v-btn>
-            </div>
-          </v-form>
-        </v-card-text>
-      </v-card>
+  <v-form v-model="formValid" @submit.prevent="onFormSubmit">
+    <v-text-field
+      v-model="formData.email"
+      :rules="rules.email"
+      label="Email Address"
+      outlined
+      required
+    />
+    <PasswordInput v-model="formData.password" :rules="rules.password" />
+    <div class="d-flex">
       <PasswordResetForm />
-    </v-col>
-  </v-row>
+      <v-spacer />
+      <v-btn
+        :disabled="!formValid"
+        :loading="isLoading"
+        type="submit"
+        color="primary"
+        depressed
+      >
+        Login
+      </v-btn>
+    </div>
+  </v-form>
 </template>
 
 <script>
-import { mdiEye, mdiEyeOff } from '@mdi/js';
-
 import PasswordInput from '@/components/Shared/PasswordInput.vue';
 import PasswordResetForm from '@/components/Auth/PasswordResetForm.vue';
 

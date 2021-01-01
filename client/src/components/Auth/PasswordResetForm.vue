@@ -1,37 +1,35 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="570px">
     <template v-slot:activator="{ on }">
-      <div class="text-center">
-        <v-btn class="text-capitalize" text v-on="on">Reset Your Password</v-btn>
-      </div>
+      <v-btn class="text-capitalize" v-on="on" text>Forgot your password?</v-btn>
     </template>
-    <v-form
-      ref="form"
-      v-model="formValid"
-      @submit.prevent="onFormSubmit"
-    >
+    <v-form v-model="formValid" @submit.prevent="onFormSubmit">
       <v-card>
         <v-card-title>Reset Your Password</v-card-title>
+        <v-divider />
         <v-card-text>
           <v-text-field
             v-model="formData.email"
             :error-messages="errors"
             :rules="[v => !!v || 'E-mail is required']"
             label="Email Address"
+            outlined
             @input="onTyped"
           />
+          <div class="d-flex">
+            <v-spacer />
+            <v-btn text @click="dialog = false">Close</v-btn>
+            <v-btn
+              :loading="isLoading"
+              :disabled="!formValid"
+              color="success"
+              type="submit"
+              depressed
+            >
+              Send
+            </v-btn>
+          </div>
         </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn text @click="dialog = false">Close</v-btn>
-          <v-btn
-            :loading="isLoading"
-            :disabled="!formValid"
-            color="success"
-            type="submit"
-            depressed
-          >Send</v-btn>
-        </v-card-actions>
       </v-card>
     </v-form>
   </v-dialog>

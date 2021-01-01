@@ -6,6 +6,7 @@
     :rules="rules"
     :type="showPassword ? 'text' : 'password'"
     class="input-group--focused"
+    outlined
     required
     @click:append="showPassword = !showPassword"
   />

@@ -18,20 +18,26 @@ const router = new Router({
       component: Home,
     },
     {
-      path: '/login',
-      name: 'login',
-      component: () => import(/* webpackChunkName: "login" */ '../views/Login'),
-      meta: {
-        requiresNoAuth: true,
-      },
-    },
-    {
-      path: '/signup',
-      name: 'register',
-      component: () => import(/* webpackChunkName: "login" */ '../views/Register'),
-      meta: {
-        requiresNoAuth: true,
-      },
+      path: '/auth',
+      component: () => import(/* webpackChunkName: "auth" */ '../views/Auth.vue'),
+      children: [
+        {
+          path: 'login',
+          name: 'login',
+          component: () => import(/* webpackChunkName: "login" */ '../views/Auth/Login'),
+          meta: {
+            requiresNoAuth: true,
+          },
+        },
+        {
+          path: 'signup',
+          name: 'register',
+          component: () => import(/* webpackChunkName: "register" */ '../views/Auth/Register'),
+          meta: {
+            requiresNoAuth: true,
+          },
+        },
+      ],
     },
     {
       path: '/about',
