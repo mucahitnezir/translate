@@ -1,36 +1,27 @@
 <template>
   <UpdateForm ref="form" title="Update Your Password" @submit="onFormSubmit">
-    <v-text-field
+    <PasswordInput
       v-model="formData.password"
-      :append-icon="showPassword ? icons.mdiEye : icons.mdiEyeOff"
-      :rules="[rules.required]"
-      :type="showPassword ? 'text' : 'password'"
-      label="Password"
-      @click:append="showPassword = !showPassword"
+      :outlined="false"
+      :rules="[formRules.required('Password')]"
     />
   </UpdateForm>
 </template>
 
 <script>
-import { mdiEye, mdiEyeOff } from '@mdi/js';
-
 import UpdateForm from './UpdateForm.vue';
+import formMixin from '@/mixins/formMixin';
+
+import PasswordInput from '@/components/Shared/PasswordInput.vue';
 
 export default {
   name: 'UpdatePasswordForm',
-  components: { UpdateForm },
+  mixins: [formMixin],
+  components: { PasswordInput, UpdateForm },
   data() {
     return {
-      icons: {
-        mdiEye,
-        mdiEyeOff,
-      },
-      showPassword: false,
       formData: {
         password: '',
-      },
-      rules: {
-        required: v => !!v || 'This field is required',
       },
     };
   },

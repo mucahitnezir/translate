@@ -6,7 +6,7 @@
     :rules="rules"
     :type="showPassword ? 'text' : 'password'"
     class="input-group--focused"
-    outlined
+    :outlined="outlined"
     required
     @click:append="showPassword = !showPassword"
   />
@@ -31,6 +31,10 @@ export default {
       default() {
         return [];
       },
+    },
+    outlined: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {

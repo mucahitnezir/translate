@@ -2,18 +2,18 @@
   <v-form v-model="formValid" @submit.prevent="onFormSubmit">
     <v-text-field
       v-model="formData.email"
-      :rules="rules.email"
+      :rules="[formRules.required('Email address'), formRules.email]"
       label="Email Address"
       outlined
       required
     />
-    <PasswordInput v-model="formData.password" :rules="rules.password" />
+    <PasswordInput v-model="formData.password" :rules="[formRules.required('Password')]" />
     <div class="d-flex">
       <PasswordResetForm />
       <v-spacer />
       <v-btn
         :disabled="!formValid"
-        :loading="isLoading"
+        :loading="formLoading"
         type="submit"
         color="primary"
         depressed
@@ -25,11 +25,14 @@
 </template>
 
 <script>
+import formMixin from '@/mixins/formMixin';
+
 import PasswordInput from '@/components/Shared/PasswordInput.vue';
 import PasswordResetForm from '@/components/Auth/PasswordResetForm.vue';
 
 export default {
   name: 'Login',
+  mixins: [formMixin],
   components: {
     PasswordInput,
     PasswordResetForm,
@@ -39,21 +42,10 @@ export default {
       email: '',
       password: '',
     },
-    formValid: false,
-    isLoading: false,
-    rules: {
-      email: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-      ],
-      password: [
-        v => !!v || 'Password is required',
-      ],
-    },
   }),
   methods: {
     onFormSubmit() {
-      this.isLoading = true;
+      this.formLoading = true;
       this.$store.dispatch('auth/login', this.formData)
         .then(() => {
           // Redirect user
@@ -66,7 +58,7 @@ export default {
           this.$store.dispatch('notification/setSnackText', err.message);
         })
         .finally(() => {
-          this.isLoading = false;
+          this.formLoading = false;
         });
     },
   },

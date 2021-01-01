@@ -3,7 +3,7 @@
     <template v-slot:activator="{ on }">
       <v-btn class="text-capitalize" v-on="on" text>Forgot your password?</v-btn>
     </template>
-    <v-form v-model="formValid" @submit.prevent="onFormSubmit">
+    <v-form v-model="formValid" ref="form" @submit.prevent="onFormSubmit">
       <v-card>
         <v-card-title>Reset Your Password</v-card-title>
         <v-divider />
@@ -11,7 +11,7 @@
           <v-text-field
             v-model="formData.email"
             :error-messages="errors"
-            :rules="[v => !!v || 'E-mail is required']"
+            :rules="[formRules.required('Email address'), formRules.email]"
             label="Email Address"
             outlined
             @input="onTyped"
@@ -20,7 +20,7 @@
             <v-spacer />
             <v-btn text @click="dialog = false">Close</v-btn>
             <v-btn
-              :loading="isLoading"
+              :loading="formLoading"
               :disabled="!formValid"
               color="success"
               type="submit"
@@ -37,41 +37,42 @@
 
 <script>
 import { auth } from '@/firebase';
+import formMixin from '@/mixins/formMixin';
 
 export default {
   name: 'PasswordResetForm',
+  mixins: [formMixin],
   data: () => ({
     dialog: false,
     errors: [],
     formData: {
       email: '',
     },
-    isLoading: false,
-    formValid: false,
   }),
   methods: {
     onFormSubmit() {
-      this.isLoading = true;
+      this.formLoading = true;
       auth.sendPasswordResetEmail(this.formData.email)
         .then(() => {
           // Hide dialog
           this.dialog = false;
+          // Clear data
+          this.clearData();
           // Show notification message
           const message = 'Your email sent!';
           this.$store.dispatch('notification/setSnackText', message);
-          // Clear data
-          this.clearData();
         })
         .catch((err) => {
           this.errors = [err.message];
         })
         .finally(() => {
-          this.isLoading = false;
+          this.formLoading = false;
         });
     },
     clearData() {
       this.errors = [];
       this.formData.email = '';
+      this.$refs.form.resetValidation();
     },
     onTyped() {
       if (this.errors.length > 0) {

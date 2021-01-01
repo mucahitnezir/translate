@@ -3,24 +3,24 @@
   >
     <v-text-field
       v-model="formData.displayName"
-      :rules="rules.displayName"
+      :rules="[formRules.required('Display name')]"
       label="Display Name"
       outlined
       required
     />
     <v-text-field
       v-model="formData.email"
-      :rules="rules.email"
+      :rules="[formRules.required('Email address'), formRules.email]"
       label="Email Address"
       outlined
       required
     />
-    <PasswordInput v-model="formData.password" :rules="rules.password" />
+    <PasswordInput v-model="formData.password" :rules="[formRules.required('Password')]" />
     <div class="d-flex">
       <v-spacer />
       <v-btn
         :disabled="!formValid"
-        :loading="isLoading"
+        :loading="formLoading"
         type="submit"
         color="primary"
         depressed
@@ -33,10 +33,13 @@
 
 <script>
 import { functions } from '@/firebase';
+
+import formMixin from '@/mixins/formMixin';
 import PasswordInput from '@/components/Shared/PasswordInput.vue';
 
 export default {
   name: 'Register',
+  mixins: [formMixin],
   components: { PasswordInput },
   data: () => ({
     formData: {
@@ -44,24 +47,10 @@ export default {
       displayName: '',
       password: '',
     },
-    formValid: false,
-    isLoading: false,
-    rules: {
-      email: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-      ],
-      password: [
-        v => !!v || 'Password is required',
-      ],
-      displayName: [
-        v => !!v || 'Display name is required',
-      ],
-    },
   }),
   methods: {
     onFormSubmit() {
-      this.isLoading = true;
+      this.formLoading = true;
       functions.httpsCallable('register')(this.formData)
         .then(() => {
           this.$router.push({ name: 'login' });
@@ -71,7 +60,7 @@ export default {
           this.$store.dispatch('notification/setSnackText', err.message);
         })
         .finally(() => {
-          this.isLoading = false;
+          this.formLoading = false;
         });
     },
   },

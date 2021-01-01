@@ -3,7 +3,7 @@
     <v-text-field
       v-model="formData.email"
       :append-icon="icons.mdiEmail"
-      :rules="[rules.required]"
+      :rules="[formRules.required('Email address'), formRules.email]"
       label="Email Address"
     />
   </UpdateForm>
@@ -13,9 +13,11 @@
 import { mdiEmail } from '@mdi/js';
 
 import UpdateForm from './UpdateForm.vue';
+import formMixin from '@/mixins/formMixin';
 
 export default {
   name: 'UpdateEmailForm',
+  mixins: [formMixin],
   components: { UpdateForm },
   data() {
     const authUser = Object.assign({}, this.$store.getters['auth/authUser']);
@@ -26,9 +28,6 @@ export default {
       },
       formData: {
         email: authUser.email,
-      },
-      rules: {
-        required: v => !!v || 'This field is required',
       },
     };
   },

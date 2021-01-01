@@ -2,17 +2,19 @@
   <UpdateForm ref="form" title="Update Your Profile" @submit="onFormSubmit">
     <v-text-field
       v-model="formData.displayName"
-      :rules="[rules.required]"
+      :rules="[formRules.required('Display name')]"
       label="Display Name"
     />
   </UpdateForm>
 </template>
 
 <script>
+import formMixin from '@/mixins/formMixin';
 import UpdateForm from '@/components/Profile/UpdateForm.vue';
 
 export default {
   name: 'UpdateProfileForm',
+  mixins: [formMixin],
   components: { UpdateForm },
   data() {
     const authUser = Object.assign({}, this.$store.getters['auth/authUser']);
@@ -20,9 +22,6 @@ export default {
     return {
       formData: {
         displayName: authUser.displayName,
-      },
-      rules: {
-        required: v => !!v || 'This field is required',
       },
     };
   },
