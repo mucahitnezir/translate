@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import { cloneDeep } from 'lodash';
 import { mdiEmail } from '@mdi/js';
 
 import UpdateForm from './UpdateForm.vue';
@@ -19,7 +18,7 @@ export default {
   name: 'UpdateEmailForm',
   components: { UpdateForm },
   data() {
-    const authUser = cloneDeep(this.$store.getters['auth/authUser']);
+    const authUser = Object.assign({}, this.$store.getters['auth/authUser']);
 
     return {
       icons: {

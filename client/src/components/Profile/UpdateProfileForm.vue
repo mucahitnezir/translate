@@ -9,15 +9,13 @@
 </template>
 
 <script>
-import { cloneDeep } from 'lodash';
-
 import UpdateForm from '@/components/Profile/UpdateForm.vue';
 
 export default {
   name: 'UpdateProfileForm',
   components: { UpdateForm },
   data() {
-    const authUser = cloneDeep(this.$store.getters['auth/authUser']);
+    const authUser = Object.assign({}, this.$store.getters['auth/authUser']);
 
     return {
       formData: {
