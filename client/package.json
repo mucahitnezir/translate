@@ -36,7 +36,7 @@
     "webpack-bundle-analyzer": "^3.6.0"
   },
   "engines": {
-    "node": "10.16.3",
-    "npm": "6.9.0"
+    "node": "14",
+    "npm": "6"
   }
 }
