@@ -26,6 +26,14 @@ const router = new Router({
       },
     },
     {
+      path: '/signup',
+      name: 'register',
+      component: () => import(/* webpackChunkName: "login" */ '../views/Register'),
+      meta: {
+        requiresNoAuth: true,
+      },
+    },
+    {
       path: '/about',
       name: 'about',
       component: () => import(/* webpackChunkName: "about" */ '../views/About'),
