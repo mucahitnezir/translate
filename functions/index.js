@@ -3,10 +3,41 @@ const functions = require('firebase-functions');
 
 admin.initializeApp();
 
+const auth = admin.auth();
 const firestore = admin.firestore();
 
 const awsConfig = functions.config().aws;
 const { speechText, translateText } = require('./aws')(awsConfig);
+
+/**
+ * User Register Function
+ */
+exports.register = functions.region('europe-west3').https.onCall(async (data, context) => {
+  // Get user data
+  const { displayName, email, password } = data;
+
+  // Create user
+  const user = await auth.createUser({ displayName, email, password })
+    .catch((err) => {
+      throw new functions.https.HttpsError('unknown', err.message);
+    });
+
+  // Save it to firestore
+  await firestore.collection('users').doc(user.uid)
+    .set({
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+    })
+    .catch(async (err) => {
+      await auth.deleteUser(user.uid);
+      throw new functions.https.HttpsError('unknown', err.message);
+    });
+
+  return {
+    uid: user.uid
+  }
+});
 
 /**
  * Translate Function
