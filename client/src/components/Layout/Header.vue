@@ -10,45 +10,27 @@
 
     <v-spacer />
 
-    <template v-if="!isAuthenticated">
-      <v-btn
-        :to="{ name: 'login' }"
-        text
-        icon
-      >
-        <v-icon>{{ icons.mdiLoginVariant }}</v-icon>
-      </v-btn>
-    </template>
-    <template v-else>
-      <v-btn
-        icon
-        text
-        :to="{ name: 'profile' }"
-      >
-        <v-icon>{{ icons.mdiAccount }}</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        text
-        @click="onLogOut"
-      >
-        <v-icon>{{ icons.mdiLogoutVariant }}</v-icon>
-      </v-btn>
-    </template>
+    <v-btn v-if="!isAuthenticated" :to="{ name: 'login' }" text icon>
+      <v-icon>{{ icons.mdiLoginVariant }}</v-icon>
+    </v-btn>
+    <HeaderUserCard v-else />
   </v-app-bar>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import { mdiLoginVariant, mdiLogoutVariant, mdiAccount } from '@mdi/js';
+import { mdiAccount, mdiLoginVariant, mdiLogoutVariant } from '@mdi/js';
+
+import HeaderUserCard from '@/components/Layout/HeaderUserCard.vue';
 
 export default {
   name: 'Header',
+  components: { HeaderUserCard },
   data: () => ({
     icons: {
+      mdiAccount,
       mdiLoginVariant,
       mdiLogoutVariant,
-      mdiAccount,
     },
   }),
   computed: {
