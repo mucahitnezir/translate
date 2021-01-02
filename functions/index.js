@@ -17,7 +17,8 @@ exports.register = functions.region('europe-west3').https.onCall(async (data, co
   const { displayName, email, password } = data;
 
   // Create user
-  const user = await auth.createUser({ displayName, email, password })
+  const photoURL = 'https://firebasestorage.googleapis.com/v0/b/translate-app-989a3.appspot.com/o/default_profile_400x400.png?alt=media';
+  const user = await auth.createUser({ displayName, email, password, photoURL })
     .catch((err) => {
       throw new functions.https.HttpsError('unknown', err.message);
     });
@@ -28,6 +29,7 @@ exports.register = functions.region('europe-west3').https.onCall(async (data, co
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
+      photoURL: user.photoURL,
     })
     .catch(async (err) => {
       await auth.deleteUser(user.uid);
@@ -38,6 +40,7 @@ exports.register = functions.region('europe-west3').https.onCall(async (data, co
     uid: user.uid
   }
 });
+
 
 /**
  * Translate Function
@@ -113,4 +116,19 @@ exports.speechText = functions.region('europe-west3').https.onCall((data, contex
     .catch((err) => {
       throw new functions.https.HttpsError('unknown', err.message);
     });
+});
+
+
+/**
+ * On User Delete
+ */
+exports.onUserDelete = functions.region('europe-west3').auth.user().onDelete(async (user) => {
+  const { uid } = user;
+
+  await firestore.collection('users').doc(uid).delete()
+    .catch(() => {
+      return false;
+    });
+
+  return true;
 });
