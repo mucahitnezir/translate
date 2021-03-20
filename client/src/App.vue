@@ -13,8 +13,6 @@
     <router-view name="right" />
 
     <SnackBar />
-
-    <Footer />
   </v-app>
 </template>
 
@@ -25,7 +23,6 @@ import { auth } from './firebase';
 
 import Header from './components/Layout/Header.vue';
 import Sidebar from './components/Layout/Sidebar.vue';
-import Footer from './components/Layout/Footer.vue';
 
 import SnackBar from './components/Notification/SnackBar.vue';
 
@@ -34,7 +31,6 @@ export default {
   components: {
     Header,
     Sidebar,
-    Footer,
     SnackBar,
   },
   data: () => ({}),
