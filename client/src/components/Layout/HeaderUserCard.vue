@@ -7,7 +7,7 @@
     :close-on-content-click="false"
   >
     <template v-slot:activator="{ on, attrs }">
-      <v-btn icon v-bind="attrs" v-on="on">
+      <v-btn class="mr-0" icon v-bind="attrs" v-on="on">
         <v-avatar>
           <img :src="authUser.photoURL" :alt="authUser.displayName">
         </v-avatar>
