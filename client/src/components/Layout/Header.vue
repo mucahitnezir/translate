@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app clipped-left clipped-right tile>
+  <v-app-bar app clipped-left clipped-right elevation="1" tile>
     <v-app-bar-nav-icon @click.stop="changeDrawerStatus" />
 
     <v-toolbar-title class="pl-0">
