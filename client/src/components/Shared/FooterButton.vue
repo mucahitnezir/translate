@@ -4,6 +4,7 @@
       icon
       x-large
       :to="to"
+      :href="href"
       class="pa-8 mb-2"
       style="border: 1px solid #ddd;"
       @click="$emit('click')"
@@ -28,6 +29,10 @@ export default {
     },
     to: {
       type: [String, Object],
+      default: undefined,
+    },
+    href: {
+      type: String,
       default: undefined,
     },
   },

@@ -37,6 +37,7 @@
       <div class="d-flex">
         <FooterButton :icon="icons.mdiHistory" text="History" to="/history" />
         <FooterButton :icon="icons.mdiStar" text="Saved" to="/saved" />
+        <FooterButton :icon="icons.mdiGithubCircle" text="GitHub" :href="githubUrl" />
       </div>
       <v-spacer />
     </div>
@@ -45,7 +46,7 @@
 </template>
 
 <script>
-import { mdiHistory, mdiStar } from '@mdi/js';
+import { mdiGithubCircle, mdiHistory, mdiStar } from '@mdi/js';
 
 import SourceInput from '@/components/Translate/SourceInput.vue';
 import TargetInput from '@/components/Translate/TargetInput.vue';
@@ -69,7 +70,8 @@ export default {
     TargetInput,
   },
   data: () => ({
-    icons: { mdiHistory, mdiStar },
+    icons: { mdiGithubCircle, mdiHistory, mdiStar },
+    githubUrl: 'https://github.com/mucahitnezir/translate',
   }),
 };
 </script>
