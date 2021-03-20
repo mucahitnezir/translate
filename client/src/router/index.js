@@ -5,6 +5,8 @@ import AuthGuard from './authGuard';
 
 import Home from '@/views/Home.vue';
 import NotFound from '@/views/NotFound.vue';
+import TranslateHistory from '@/views/TranslateHistory.vue';
+import SavedTranslations from '@/views/SavedTranslations.vue';
 
 Vue.use(Router);
 
@@ -16,6 +18,22 @@ const router = new Router({
       path: '/',
       name: 'home',
       component: Home,
+    },
+    {
+      path: '/history',
+      name: 'history',
+      components: {
+        default: Home,
+        right: TranslateHistory,
+      },
+    },
+    {
+      path: '/saved',
+      name: 'saved',
+      components: {
+        default: Home,
+        right: SavedTranslations,
+      },
     },
     {
       path: '/auth',
