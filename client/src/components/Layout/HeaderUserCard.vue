@@ -4,6 +4,7 @@
     :max-width="280"
     :nudge-top="-10"
     offset-y
+    :close-on-content-click="false"
   >
     <template v-slot:activator="{ on, attrs }">
       <v-btn icon v-bind="attrs" v-on="on">
@@ -14,12 +15,10 @@
     </template>
 
     <v-card>
-      <v-list>
+      <v-list class="py-0">
         <v-list-item>
           <v-list-item-avatar>
-            <v-avatar>
-              <img :src="authUser.photoURL" :alt="authUser.displayName">
-            </v-avatar>
+            <v-img :src="authUser.photoURL" :alt="authUser.displayName" />
           </v-list-item-avatar>
 
           <v-list-item-content>
@@ -27,14 +26,12 @@
             <v-list-item-subtitle>{{ authUser.email }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
-      </v-list>
-      <v-divider />
-      <v-list>
+        <v-divider />
         <v-list-item :to="{ name: 'profile-edit' }">
           <v-list-item-title>Update Your Profile</v-list-item-title>
         </v-list-item>
+        <v-divider />
       </v-list>
-      <v-divider />
       <v-card-text>
         <v-btn
           block
