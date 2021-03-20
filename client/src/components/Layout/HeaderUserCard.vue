@@ -27,6 +27,18 @@
           </v-list-item-content>
         </v-list-item>
         <v-divider />
+        <v-list-item>
+          <v-list-item-icon class="mr-3">
+            <v-icon>{{ $vuetify.theme.dark ? icons.mdiBrightness4 : icons.mdiBrightness7 }}</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Dark Theme</v-list-item-title>
+          </v-list-item-content>
+          <v-list-item-action>
+            <v-switch v-model="$vuetify.theme.dark" />
+          </v-list-item-action>
+        </v-list-item>
+        <v-divider />
         <v-list-item :to="{ name: 'profile-edit' }">
           <v-list-item-title>Update Your Profile</v-list-item-title>
         </v-list-item>
@@ -49,6 +61,7 @@
 </template>
 
 <script>
+import { mdiBrightness4, mdiBrightness7 } from '@mdi/js';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -57,10 +70,16 @@ export default {
     return {
       menu: false,
       loading: false,
+      icons: { mdiBrightness4, mdiBrightness7 },
     };
   },
   computed: {
     ...mapGetters('auth', ['authUser']),
+  },
+  watch: {
+    '$vuetify.theme.dark': (isDark) => {
+      localStorage.setItem('vuetifyDarkTheme', isDark);
+    },
   },
   methods: {
     onLogout() {

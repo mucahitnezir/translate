@@ -2,7 +2,7 @@
   <v-textarea
     v-model="inputValue"
     auto-grow
-    background-color="white"
+    background-color="transparent"
     clearable
     counter
     :readonly="readonly"

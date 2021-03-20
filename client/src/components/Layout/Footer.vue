@@ -1,8 +1,5 @@
 <template>
-  <v-footer
-    padless
-    color="white"
-  >
+  <v-footer padless>
     <v-col cols="12" class="text-center">
       &copy; {{ new Date().getFullYear() }}
     </v-col>

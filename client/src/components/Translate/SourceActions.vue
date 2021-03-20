@@ -1,12 +1,12 @@
 <template>
-  <div class="d-inline-flex pa-2" style="background-color: #ddd">
+  <v-card class="d-flex pa-2" style="background-color: #ddd" flat tile light>
     <v-btn text icon>
       <v-icon>{{ svgPath }}</v-icon>
     </v-btn>
     <ListenButton :lang-code="sourceLangCode" :text="sourceText" />
     <v-spacer />
     <TranslateButton />
-  </div>
+  </v-card>
 </template>
 
 <script>

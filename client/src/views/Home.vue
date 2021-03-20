@@ -1,30 +1,35 @@
 <template>
   <div>
+    <!-- Language Buttons -->
     <div class="d-flex align-center mb-2">
       <SourceLanguageSelect class="flex-1" />
       <ChangeLanguagesButton class="mx-1" />
       <TargetLanguageSelect class="flex-1" />
     </div>
-    <v-card class="mb-3">
+    <!-- // Language Buttons -->
+
+    <!-- Translate Inputs -->
+    <v-card class="mb-3 overflow-hidden">
       <v-row no-gutters>
         <v-col cols="12" md="6">
-          <div class="d-flex flex-column hp-100">
-            <div class="bg-white flex-grow-1">
+          <v-card class="d-flex flex-column hp-100" flat tile>
+            <div class="flex-grow-1">
               <SourceInput />
             </div>
             <SourceActions />
-          </div>
+          </v-card>
         </v-col>
         <v-col cols="12" md="6">
-          <div class="d-flex flex-column hp-100">
-            <div class="bg-target-gray flex-grow-1">
+          <v-card class="d-flex flex-column hp-100" flat tile color="targetBackground">
+            <div class="flex-grow-1">
               <TargetInput />
             </div>
             <TargetActions />
-          </div>
+          </v-card>
         </v-col>
       </v-row>
     </v-card>
+    <!-- // Translate Inputs -->
   </div>
 </template>
 

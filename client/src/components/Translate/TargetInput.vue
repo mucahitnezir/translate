@@ -2,7 +2,7 @@
   <v-textarea
     :value="translatedText"
     auto-grow
-    background-color="#F5F5F5"
+    background-color="transparent"
     flat
     hide-details
     label="Target Text"

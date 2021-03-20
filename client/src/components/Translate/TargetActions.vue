@@ -1,9 +1,9 @@
 <template>
-  <div class="d-flex pa-2" style="background-color: #ddd">
+  <v-card class="d-flex pa-2" style="background-color: #ddd" flat tile light>
     <ListenButton :lang-code="targetLangCode" :text="translatedText" />
     <v-spacer />
     <CopyToClipboardButton :text="translatedText" />
-  </div>
+  </v-card>
 </template>
 
 <script>
