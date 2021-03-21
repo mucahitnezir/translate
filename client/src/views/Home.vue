@@ -37,7 +37,12 @@
       <div class="d-flex">
         <FooterButton :icon="icons.mdiHistory" text="History" to="/history" />
         <FooterButton :icon="icons.mdiStar" text="Saved" to="/saved" />
-        <FooterButton :icon="icons.mdiGithubCircle" text="GitHub" :href="githubUrl" />
+        <FooterButton
+          :icon="icons.mdiGithubCircle"
+          text="GitHub"
+          :href="githubUrl"
+          target="_blank"
+        />
       </div>
       <v-spacer />
     </div>

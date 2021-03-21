@@ -5,6 +5,7 @@
       x-large
       :to="to"
       :href="href"
+      :target="target"
       class="pa-8 mb-2"
       style="border: 1px solid #ddd;"
       @click="$emit('click')"
@@ -32,6 +33,10 @@ export default {
       default: undefined,
     },
     href: {
+      type: String,
+      default: undefined,
+    },
+    target: {
       type: String,
       default: undefined,
     },
