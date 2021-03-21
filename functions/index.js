@@ -64,6 +64,12 @@ exports.translate = functions.region('europe-west3').https.onCall(async (data, c
 
     if (querySnapshot.docs.length >= 1) {
       const documentData = querySnapshot.docs[0].data();
+      // Save the translation to user history
+      if (context.auth) {
+        const { uid } = context.auth;
+        await firestore.collection('users').doc(uid).collection('translations')
+          .add({ ...documentData, createdAt: admin.firestore.Timestamp.now() });
+      }
       return {
         sourceLangCode: documentData.sourceLangCode.translated,
         translatedText: documentData.targetText,
@@ -79,8 +85,8 @@ exports.translate = functions.region('europe-west3').https.onCall(async (data, c
   };
   return translateText(params)
     .then((response) => {
-      // Save the translation to the firestore
-      firestore.collection('translations').add({
+      // Save translation
+      const payload = {
         sourceLangCode: {
           original: sourceLangCode,
           translated: response.SourceLanguageCode,
@@ -88,10 +94,17 @@ exports.translate = functions.region('europe-west3').https.onCall(async (data, c
         targetLangCode,
         sourceText: text,
         targetText: response.TranslatedText,
-        userId: context.auth ? context.auth.uid : null,
         translationSource: 'aws',
         createdAt: admin.firestore.Timestamp.now(),
-      });
+      };
+      // Save the translation to firestore
+      firestore.collection('translations').add(payload);
+      // Save the translation to user history
+      if (context.auth) {
+        const { uid } = context.auth;
+        firestore.collection('users').doc(uid).collection('translations')
+          .add(payload);
+      }
       // Return response
       return {
         sourceLangCode: response.SourceLanguageCode,
