@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
 import 'firebase/functions';
 
 const app = firebase.initializeApp({
@@ -16,5 +17,7 @@ myAuth.getCurrentUser = () => new Promise((resolve) => {
 });
 
 export const auth = myAuth;
+
+export const firestore = app.firestore();
 
 export const functions = app.functions('europe-west3');

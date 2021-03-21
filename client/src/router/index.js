@@ -26,6 +26,9 @@ const router = new Router({
         default: Home,
         right: TranslateHistory,
       },
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: '/saved',
