@@ -53,18 +53,21 @@ exports.translate = functions.region('europe-west3').https.onCall(async (data, c
   }
 
   // Firstly, try to find it on the firestore
-  const querySnapshot = await firestore.collection('translations')
-    .where('sourceText', '==', text)
-    .where('sourceLangCode.translated', '==', sourceLangCode)
-    .where('targetLangCode', '==', targetLangCode)
-    .limit(1)
-    .get();
+  if (sourceLangCode !== 'auto') {
+    // TODO: Migrate to algolia search
+    const querySnapshot = await firestore.collection('translations')
+      .where('sourceText', '==', text)
+      .where('sourceLangCode.translated', '==', sourceLangCode)
+      .where('targetLangCode', '==', targetLangCode)
+      .limit(1)
+      .get();
 
-  if (querySnapshot.docs.length >= 1) {
-    const documentData = querySnapshot.docs[0].data();
-    return {
-      sourceLangCode: documentData.sourceLangCode.translated,
-      translatedText: documentData.targetText,
+    if (querySnapshot.docs.length >= 1) {
+      const documentData = querySnapshot.docs[0].data();
+      return {
+        sourceLangCode: documentData.sourceLangCode.translated,
+        translatedText: documentData.targetText,
+      }
     }
   }
 
