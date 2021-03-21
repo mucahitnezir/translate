@@ -14,9 +14,9 @@
   },
   "main": "index.js",
   "dependencies": {
-    "aws-sdk": "^2.766.0",
-    "firebase-admin": "^8.10.0",
-    "firebase-functions": "^3.6.1"
+    "aws-sdk": "^2.868.0",
+    "firebase-admin": "^9.5.0",
+    "firebase-functions": "^3.13.2"
   },
   "devDependencies": {
     "eslint": "^5.12.0",
