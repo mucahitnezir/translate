@@ -29,17 +29,17 @@
           />
         </v-toolbar>
         <v-card-text class="pt-0">
-          <p class="mb-1" style="color: #202124;">{{ translation.sourceText }}</p>
-          <p class="mb-0" style="color: #5f6368;">{{ translation.targetText }}</p>
+          <p class="mb-1 font-weight-bold">{{ translation.sourceText }}</p>
+          <p class="mb-0">{{ translation.targetText }}</p>
         </v-card-text>
         <v-divider />
       </v-card>
     </template>
     <div v-else class="d-flex flex-column align-center mt-12">
       <v-img :src="require('@/assets/desert.png')" class="mb-6" max-width="250" />
-      <div class="text-lg-h1">
+      <p class="mb-0">
         There is no translation history.
-      </div>
+      </p>
     </div>
   </v-navigation-drawer>
 </template>
