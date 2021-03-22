@@ -8,28 +8,39 @@
       </v-toolbar>
       <v-divider />
     </template>
-    <v-card v-for="translation in translations" :key="translation.id" flat tile>
-      <v-toolbar dense flat color="transparent">
-        <v-toolbar-title class="font-weight-regular" style="font-size: 16px">
-          {{ translation.sourceLangCode.translated | lang }}
-          <v-icon>{{ icons.mdiChevronRight }}</v-icon>
-          {{ translation.targetLangCode | lang }}
-        </v-toolbar-title>
-        <v-spacer />
-        <ActionButton
-          :icon="icons.mdiDeleteOutline"
-          tooltip="Remove from History"
-          left
-          :top="false"
-          @click="removeTranslation(translation.ref)"
-        />
-      </v-toolbar>
-      <v-card-text class="pt-0">
-        <p class="mb-1" style="color: #202124;">{{ translation.sourceText }}</p>
-        <p class="mb-0" style="color: #5f6368;">{{ translation.targetText }}</p>
-      </v-card-text>
-      <v-divider />
-    </v-card>
+    <div v-if="loading" class="text-center mt-4">
+      <v-progress-circular indeterminate />
+    </div>
+    <template v-else-if="translations.length > 0">
+      <v-card v-for="translation in translations" :key="translation.id" flat tile>
+        <v-toolbar dense flat color="transparent">
+          <v-toolbar-title class="font-weight-regular" style="font-size: 16px">
+            {{ translation.sourceLangCode.translated | lang }}
+            <v-icon>{{ icons.mdiChevronRight }}</v-icon>
+            {{ translation.targetLangCode | lang }}
+          </v-toolbar-title>
+          <v-spacer />
+          <ActionButton
+            :icon="icons.mdiDeleteOutline"
+            tooltip="Remove from History"
+            left
+            :top="false"
+            @click="removeTranslation(translation.ref)"
+          />
+        </v-toolbar>
+        <v-card-text class="pt-0">
+          <p class="mb-1" style="color: #202124;">{{ translation.sourceText }}</p>
+          <p class="mb-0" style="color: #5f6368;">{{ translation.targetText }}</p>
+        </v-card-text>
+        <v-divider />
+      </v-card>
+    </template>
+    <div v-else class="d-flex flex-column align-center mt-12">
+      <v-img :src="require('@/assets/desert.png')" class="mb-6" max-width="250" />
+      <div class="text-lg-h1">
+        There is no translation history.
+      </div>
+    </div>
   </v-navigation-drawer>
 </template>
 
@@ -48,10 +59,12 @@ export default {
   data: () => ({
     unsubscribe: null,
     translations: [],
+    loading: false,
     icons: { mdiChevronRight, mdiDeleteOutline },
   }),
   computed: mapState('auth', ['user']),
   mounted() {
+    this.loading = true;
     this.unsubscribe = firestore
       .collection('users')
       .doc(this.user.uid)
@@ -64,6 +77,12 @@ export default {
           ref: doc.ref,
           ...doc.data(),
         }));
+        // Disable loading
+        this.loading = false;
+      }, () => {
+        this.$store.dispatch('notification/setSnackText', 'Cannot access to history');
+      }, () => {
+        this.loading = false;
       });
   },
   beforeDestroy() {
