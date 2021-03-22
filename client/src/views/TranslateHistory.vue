@@ -38,12 +38,13 @@ export default {
   name: 'TranslateHistory',
   components: { CloseButton },
   data: () => ({
+    unsubscribe: null,
     translations: [],
     icons: { mdiClose },
   }),
   computed: mapState('auth', ['user']),
   mounted() {
-    firestore
+    this.unsubscribe = firestore
       .collection('users')
       .doc(this.user.uid)
       .collection('translations')
@@ -55,6 +56,9 @@ export default {
           ...doc.data(),
         }));
       });
+  },
+  beforeDestroy() {
+    this.unsubscribe();
   },
   methods: {
     removeTranslation(translation) {
