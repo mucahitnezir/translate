@@ -11,9 +11,9 @@
     <v-card v-for="translation in translations" :key="translation.id" flat tile>
       <v-toolbar dense flat color="transparent">
         <v-toolbar-title class="font-weight-regular" style="font-size: 16px">
-          {{ translation.sourceLangCode.translated }}
+          {{ translation.sourceLangCode.translated | lang }}
           <v-icon>{{ icons.mdiChevronRight }}</v-icon>
-          {{ translation.targetLangCode }}
+          {{ translation.targetLangCode | lang }}
         </v-toolbar-title>
         <v-spacer />
         <ActionButton
