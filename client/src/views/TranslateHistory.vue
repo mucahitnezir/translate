@@ -17,7 +17,7 @@
           </v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action>
-          <v-btn icon @click="removeTranslation(translation)">
+          <v-btn icon @click="removeTranslation(translation.ref)">
             <v-icon>{{ icons.mdiClose }}</v-icon>
           </v-btn>
         </v-list-item-action>
@@ -53,6 +53,7 @@ export default {
       .onSnapshot((querySnapshot) => {
         this.translations = querySnapshot.docs.map(doc => ({
           id: doc.id,
+          ref: doc.ref,
           ...doc.data(),
         }));
       });
@@ -61,13 +62,8 @@ export default {
     this.unsubscribe();
   },
   methods: {
-    removeTranslation(translation) {
-      firestore
-        .collection('users')
-        .doc(this.user.uid)
-        .collection('translations')
-        .doc(translation.id)
-        .delete()
+    removeTranslation(documentRef) {
+      documentRef.delete()
         .catch((err) => {
           this.$store.dispatch('notification/setSnackText', err.message);
         });
