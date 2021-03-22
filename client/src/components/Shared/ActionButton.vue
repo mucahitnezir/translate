@@ -1,5 +1,5 @@
 <template>
-  <v-tooltip top>
+  <v-tooltip :top="top" :left="left">
     <template v-slot:activator="{ on }">
       <v-btn :disabled="disabled" :loading="loading" text icon v-on="on" @click="$emit('click')">
         <v-icon>{{ icon }}</v-icon>
@@ -28,6 +28,14 @@ export default {
     tooltip: {
       type: String,
       required: true,
+    },
+    top: {
+      type: Boolean,
+      default: true,
+    },
+    left: {
+      type: Boolean,
+      default: false,
     },
   },
 };

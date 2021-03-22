@@ -1,46 +1,54 @@
 <template>
   <v-navigation-drawer app clipped right width="400">
-    <div class="d-flex align-center pa-4">
-      <h3>Translation History</h3>
-      <v-spacer />
-      <CloseButton to="/" />
-    </div>
-    <v-divider />
-    <v-list color="transparent">
-      <v-list-item v-for="translation in translations" :key="translation.id">
-        <v-list-item-content>
-          <v-list-item-title>
-            {{ `[${translation.sourceLangCode.translated }] ${translation.sourceText}` }}
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            {{ `[${translation.targetLangCode }] ${translation.targetText}` }}
-          </v-list-item-subtitle>
-        </v-list-item-content>
-        <v-list-item-action>
-          <v-btn icon @click="removeTranslation(translation.ref)">
-            <v-icon>{{ icons.mdiClose }}</v-icon>
-          </v-btn>
-        </v-list-item-action>
-      </v-list-item>
-    </v-list>
+    <template v-slot:prepend>
+      <v-toolbar flat color="transparent">
+        <v-toolbar-title>Translation History</v-toolbar-title>
+        <v-spacer />
+        <CloseButton to="/" />
+      </v-toolbar>
+      <v-divider />
+    </template>
+    <v-card v-for="translation in translations" :key="translation.id" flat tile>
+      <v-toolbar dense flat color="transparent">
+        <v-toolbar-title class="font-weight-regular" style="font-size: 16px">
+          {{ translation.sourceLangCode.translated }}
+          <v-icon>{{ icons.mdiChevronRight }}</v-icon>
+          {{ translation.targetLangCode }}
+        </v-toolbar-title>
+        <v-spacer />
+        <ActionButton
+          :icon="icons.mdiDeleteOutline"
+          tooltip="Remove from History"
+          left
+          :top="false"
+          @click="removeTranslation(translation.ref)"
+        />
+      </v-toolbar>
+      <v-card-text class="pt-0">
+        <p class="mb-1" style="color: #202124;">{{ translation.sourceText }}</p>
+        <p class="mb-0" style="color: #5f6368;">{{ translation.targetText }}</p>
+      </v-card-text>
+      <v-divider />
+    </v-card>
   </v-navigation-drawer>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import { mdiClose } from '@mdi/js';
+import { mdiChevronRight, mdiDeleteOutline } from '@mdi/js';
 
 import { firestore } from '@/firebase';
 
 import CloseButton from '@/components/Shared/CloseButton.vue';
+import ActionButton from "@/components/Shared/ActionButton";
 
 export default {
   name: 'TranslateHistory',
-  components: { CloseButton },
+  components: {ActionButton, CloseButton },
   data: () => ({
     unsubscribe: null,
     translations: [],
-    icons: { mdiClose },
+    icons: { mdiChevronRight, mdiDeleteOutline },
   }),
   computed: mapState('auth', ['user']),
   mounted() {
