@@ -1,5 +1,14 @@
 <template>
-  <v-navigation-drawer app clipped right width="400">
+  <v-navigation-drawer
+    app
+    right
+    clipped
+    hide-overlay
+    disable-resize-watcher
+    :permanent="$vuetify.breakpoint.mdAndUp"
+    :width="$vuetify.breakpoint.smAndDown ? '100%' : 400"
+    :value="true"
+  >
     <template v-slot:prepend>
       <v-toolbar flat color="transparent">
         <v-toolbar-title>Translation History</v-toolbar-title>
