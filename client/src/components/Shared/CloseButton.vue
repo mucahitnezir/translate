@@ -1,5 +1,5 @@
 <template>
-  <v-btn icon :to="to" large @click="$emit('click')">
+  <v-btn icon :to="to" @click="$emit('click')">
     <v-icon>{{ svgPath }}</v-icon>
   </v-btn>
 </template>

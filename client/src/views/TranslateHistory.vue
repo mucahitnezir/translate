@@ -1,49 +1,80 @@
 <template>
-  <v-navigation-drawer app clipped right width="400">
-    <div class="d-flex align-center pa-4">
-      <h3>Translation History</h3>
-      <v-spacer />
-      <CloseButton to="/" />
+  <v-navigation-drawer
+    app
+    right
+    clipped
+    hide-overlay
+    disable-resize-watcher
+    :permanent="$vuetify.breakpoint.mdAndUp"
+    :width="$vuetify.breakpoint.smAndDown ? '100%' : 400"
+    :value="true"
+  >
+    <template v-slot:prepend>
+      <v-toolbar flat color="transparent">
+        <v-toolbar-title>Translation History</v-toolbar-title>
+        <v-spacer />
+        <CloseButton to="/" />
+      </v-toolbar>
+      <v-divider />
+    </template>
+    <div v-if="loading" class="text-center mt-4">
+      <v-progress-circular indeterminate />
     </div>
-    <v-divider />
-    <v-list color="transparent">
-      <v-list-item v-for="translation in translations" :key="translation.id">
-        <v-list-item-content>
-          <v-list-item-title>
-            {{ `[${translation.sourceLangCode.translated }] ${translation.sourceText}` }}
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            {{ `[${translation.targetLangCode }] ${translation.targetText}` }}
-          </v-list-item-subtitle>
-        </v-list-item-content>
-        <v-list-item-action>
-          <v-btn icon @click="removeTranslation(translation)">
-            <v-icon>{{ icons.mdiClose }}</v-icon>
-          </v-btn>
-        </v-list-item-action>
-      </v-list-item>
-    </v-list>
+    <template v-else-if="translations.length > 0">
+      <v-card v-for="translation in translations" :key="translation.id" flat tile>
+        <v-toolbar dense flat color="transparent">
+          <v-toolbar-title class="font-weight-regular" style="font-size: 16px">
+            {{ translation.sourceLangCode.translated | lang }}
+            <v-icon>{{ icons.mdiChevronRight }}</v-icon>
+            {{ translation.targetLangCode | lang }}
+          </v-toolbar-title>
+          <v-spacer />
+          <ActionButton
+            :icon="icons.mdiDeleteOutline"
+            tooltip="Remove from History"
+            left
+            :top="false"
+            @click="removeTranslation(translation.ref)"
+          />
+        </v-toolbar>
+        <v-card-text class="pt-0">
+          <p class="mb-1 font-weight-bold">{{ translation.sourceText }}</p>
+          <p class="mb-0">{{ translation.targetText }}</p>
+        </v-card-text>
+        <v-divider />
+      </v-card>
+    </template>
+    <div v-else class="d-flex flex-column align-center mt-12">
+      <v-img :src="require('@/assets/desert.png')" class="mb-6" max-width="250" />
+      <p class="mb-0">
+        There is no translation history.
+      </p>
+    </div>
   </v-navigation-drawer>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import { mdiClose } from '@mdi/js';
+import { mdiChevronRight, mdiDeleteOutline } from '@mdi/js';
 
 import { firestore } from '@/firebase';
 
 import CloseButton from '@/components/Shared/CloseButton.vue';
+import ActionButton from '@/components/Shared/ActionButton.vue';
 
 export default {
   name: 'TranslateHistory',
-  components: { CloseButton },
+  components: { ActionButton, CloseButton },
   data: () => ({
+    unsubscribe: null,
     translations: [],
-    icons: { mdiClose },
+    loading: false,
+    icons: { mdiChevronRight, mdiDeleteOutline },
   }),
   computed: mapState('auth', ['user']),
   mounted() {
-    firestore
+    this.loading = true;
+    this.unsubscribe = firestore
       .collection('users')
       .doc(this.user.uid)
       .collection('translations')
@@ -52,18 +83,23 @@ export default {
       .onSnapshot((querySnapshot) => {
         this.translations = querySnapshot.docs.map(doc => ({
           id: doc.id,
+          ref: doc.ref,
           ...doc.data(),
         }));
+        // Disable loading
+        this.loading = false;
+      }, () => {
+        this.$store.dispatch('notification/setSnackText', 'Cannot access to history');
+      }, () => {
+        this.loading = false;
       });
   },
+  beforeDestroy() {
+    this.unsubscribe();
+  },
   methods: {
-    removeTranslation(translation) {
-      firestore
-        .collection('users')
-        .doc(this.user.uid)
-        .collection('translations')
-        .doc(translation.id)
-        .delete()
+    removeTranslation(documentRef) {
+      documentRef.delete()
         .catch((err) => {
           this.$store.dispatch('notification/setSnackText', err.message);
         });
