@@ -40,11 +40,11 @@ import { mdiChevronRight, mdiDeleteOutline } from '@mdi/js';
 import { firestore } from '@/firebase';
 
 import CloseButton from '@/components/Shared/CloseButton.vue';
-import ActionButton from "@/components/Shared/ActionButton";
+import ActionButton from '@/components/Shared/ActionButton.vue';
 
 export default {
   name: 'TranslateHistory',
-  components: {ActionButton, CloseButton },
+  components: { ActionButton, CloseButton },
   data: () => ({
     unsubscribe: null,
     translations: [],
