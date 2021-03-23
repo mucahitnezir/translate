@@ -29,7 +29,9 @@
         <v-divider />
         <v-list-item>
           <v-list-item-icon class="mr-3">
-            <v-icon>{{ $vuetify.theme.dark ? icons.mdiBrightness4 : icons.mdiBrightness7 }}</v-icon>
+            <v-icon>
+              {{ $vuetify.theme.dark ? icons.mdiWeatherNight : icons.mdiWhiteBalanceSunny }}
+            </v-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>Dark Theme</v-list-item-title>
@@ -61,8 +63,8 @@
 </template>
 
 <script>
-import { mdiBrightness4, mdiBrightness7 } from '@mdi/js';
 import { mapGetters } from 'vuex';
+import { mdiWeatherNight, mdiWhiteBalanceSunny } from '@mdi/js';
 
 export default {
   name: 'HeaderUserCard',
@@ -70,7 +72,7 @@ export default {
     return {
       menu: false,
       loading: false,
-      icons: { mdiBrightness4, mdiBrightness7 },
+      icons: { mdiWeatherNight, mdiWhiteBalanceSunny },
     };
   },
   computed: {
