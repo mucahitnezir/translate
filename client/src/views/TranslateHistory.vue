@@ -1,22 +1,5 @@
 <template>
-  <v-navigation-drawer
-    app
-    right
-    clipped
-    hide-overlay
-    disable-resize-watcher
-    :permanent="$vuetify.breakpoint.mdAndUp"
-    :width="$vuetify.breakpoint.smAndDown ? '100%' : 400"
-    :value="true"
-  >
-    <template v-slot:prepend>
-      <v-toolbar flat color="transparent">
-        <v-toolbar-title>Translation History</v-toolbar-title>
-        <v-spacer />
-        <CloseButton to="/" />
-      </v-toolbar>
-      <v-divider />
-    </template>
+  <RightPanel title="Translation History">
     <div v-if="loading" class="text-center mt-4">
       <v-progress-circular indeterminate />
     </div>
@@ -50,7 +33,7 @@
         There is no translation history.
       </p>
     </div>
-  </v-navigation-drawer>
+  </RightPanel>
 </template>
 
 <script>
@@ -59,12 +42,12 @@ import { mdiChevronRight, mdiDeleteOutline } from '@mdi/js';
 
 import { firestore } from '@/firebase';
 
-import CloseButton from '@/components/Shared/CloseButton.vue';
+import RightPanel from '@/components/Layout/RightPanel.vue';
 import ActionButton from '@/components/Shared/ActionButton.vue';
 
 export default {
   name: 'TranslateHistory',
-  components: { ActionButton, CloseButton },
+  components: { RightPanel, ActionButton },
   data: () => ({
     unsubscribe: null,
     translations: [],
