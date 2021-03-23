@@ -1,18 +1,16 @@
 <template>
-  <v-navigation-drawer app clipped right>
-    <div class="d-flex align-center pa-4">
-      <h3>Saved Translations</h3>
-      <v-spacer />
-      <CloseButton to="/" />
+  <RightPanel title="Saved Translations">
+    <div class="pa-4">
+      This feature is not yet complete.
     </div>
-  </v-navigation-drawer>
+  </RightPanel>
 </template>
 
 <script>
-import CloseButton from '@/components/Shared/CloseButton.vue';
+import RightPanel from '@/components/Layout/RightPanel.vue';
 
 export default {
   name: 'SavedTranslations',
-  components: { CloseButton },
+  components: { RightPanel },
 };
 </script>
