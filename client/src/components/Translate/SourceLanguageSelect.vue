@@ -5,6 +5,8 @@
     dense
     hide-details
     solo
+    :flat="!$vuetify.theme.dark"
+    :class="{'border-grey': !$vuetify.theme.dark}"
   />
 </template>
 

@@ -1,58 +1,50 @@
 <template>
   <AuthCard
-    title="Create Your Account"
-    bottom-text="Already have an account? "
+    title="Reset your password"
+    bottom-text="Do you remember your password? "
     :bottom-link="{ name: 'login' }"
     bottom-link-text="Sign in"
   >
+    <template slot="top">
+      Enter your user account's email address and we will send you a password reset link.
+    </template>
     <v-form v-model="formValid" @submit.prevent="onFormSubmit">
-      <v-text-field
-        v-model="formData.displayName"
-        label="Display Name"
-        :rules="[formRules.required('Display name')]"
-      />
       <v-text-field
         v-model="formData.email"
         label="Email Address"
         :rules="[formRules.required('Email address'), formRules.email]"
       />
-      <PasswordInput
-        v-model="formData.password"
-        :outlined="false"
-        :rules="[formRules.required('Password')]"
-      />
       <AuthButton :disabled="!formValid" :loading="formLoading">
-        Create account
+        Send password reset email
       </AuthButton>
     </v-form>
   </AuthCard>
 </template>
 
 <script>
-import { functions } from '@/firebase';
+import { auth } from '@/firebase';
 
 import formMixin from '@/mixins/formMixin';
 import AuthCard from '@/components/Auth/AuthCard.vue';
 import AuthButton from '@/components/Auth/AuthButton.vue';
-import PasswordInput from '@/components/Shared/PasswordInput.vue';
 
 export default {
-  name: 'Register',
+  name: 'PasswordReset',
   mixins: [formMixin],
-  components: { AuthButton, AuthCard, PasswordInput },
+  components: { AuthButton, AuthCard },
   data: () => ({
     formData: {
       email: '',
-      displayName: '',
-      password: '',
     },
   }),
   methods: {
     onFormSubmit() {
       this.formLoading = true;
-      functions.httpsCallable('register')(this.formData)
+      auth.sendPasswordResetEmail(this.formData.email)
         .then(() => {
-          this.$router.push({ name: 'login' });
+          // Show notification message
+          const message = 'Your email sent!';
+          this.$store.dispatch('notification/setSnackText', message);
         })
         .catch((err) => {
           // Create notification

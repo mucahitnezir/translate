@@ -9,7 +9,7 @@
     <!-- // Language Buttons -->
 
     <!-- Translate Inputs -->
-    <v-card class="mb-12 overflow-hidden">
+    <v-card class="mb-12 overflow-hidden" elevation="1">
       <v-row no-gutters>
         <v-col cols="12" sm="6">
           <v-card class="d-flex flex-column hp-100" flat tile>

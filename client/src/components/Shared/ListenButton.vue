@@ -48,13 +48,7 @@ export default {
         const params = { voiceId, text: this.text };
         functions.httpsCallable('speechText')(params)
           .then((response) => {
-            const audioStream = response.data.AudioStream;
-            const uInt8Array = new Uint8Array(audioStream);
-            const arrayBuffer = uInt8Array.buffer;
-            const blob = new Blob([arrayBuffer], { type: response.data.ContentType });
-
-            const url = URL.createObjectURL(blob);
-            const audio = new Audio(url);
+            const audio = new Audio(response.data.url);
             audio.play();
           })
           .catch((err) => {
