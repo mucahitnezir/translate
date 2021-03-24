@@ -9,7 +9,7 @@ module.exports = ({ key, secret, region }) => {
   });
 
   // Create client instances
-  const polly = new AWS.Polly();
+  const polly = new AWS.Polly({ apiVersion: '2016-06-10' });
   const translate = new AWS.Translate({ apiVersion: '2017-07-01' });
 
   // Translate function
@@ -25,11 +25,13 @@ module.exports = ({ key, secret, region }) => {
 
   // Speech Text function
   const speechText = params => new Promise((resolve, reject) => {
-    polly.synthesizeSpeech(params, (err, response) => {
+    const signer = new AWS.Polly.Presigner({ params, service: polly });
+
+    signer.getSynthesizeSpeechUrl(params, (err, url) => {
       if (err) {
         reject(err);
       } else {
-        resolve(response);
+        resolve({ url });
       }
     });
   });
