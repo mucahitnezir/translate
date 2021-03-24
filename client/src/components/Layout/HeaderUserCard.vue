@@ -41,7 +41,7 @@
           </v-list-item-action>
         </v-list-item>
         <v-divider />
-        <v-list-item :to="{ name: 'profile-edit' }">
+        <v-list-item @click="navigateToProfile">
           <v-list-item-title>Update Your Profile</v-list-item-title>
         </v-list-item>
         <v-divider />
@@ -78,16 +78,20 @@ export default {
   computed: {
     ...mapGetters('auth', ['authUser']),
   },
-  watch: {
-    '$vuetify.theme.dark': (isDark) => {
-      localStorage.setItem('vuetifyDarkTheme', isDark);
-    },
-  },
   methods: {
+    navigateToProfile() {
+      this.menu = false;
+      // Route to page
+      const { name: routeName } = this.$route;
+      if (routeName !== 'profile-edit') {
+        this.$router.push({ name: 'profile-edit' });
+      }
+    },
     onLogout() {
       this.loading = true;
       this.$store.dispatch('auth/logOut')
         .then(() => {
+          this.menu = false;
           this.$router.push({ name: 'login' });
         })
         .catch((err) => {

@@ -1,38 +1,145 @@
 <template>
   <v-row>
-    <v-col cols="12" md="3">
-      <v-list color="purple" dark :tile="false">
-        <v-list-item :to="{ name: 'profile' }" :exact="true">
-          <v-list-item-title>Profile Detail</v-list-item-title>
-        </v-list-item>
-        <v-list-item :to="{ name: 'profile-edit' }">
-          <v-list-item-title>Edit Profile</v-list-item-title>
-        </v-list-item>
-        <v-list-item @click="onLogOut">
-          <v-list-item-title>Logout</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-col>
-    <v-col cols="12" md="9">
-      <router-view />
+    <v-col cols="12" md="6" offset-md="3">
+      <!--Profile Photo-->
+      <div class="d-flex align-center justify-center mb-4">
+        <v-img :src="authUser.photoURL" max-width="150" style="border-radius: 50%;" />
+      </div>
+      <!--// Profile Photo-->
+
+      <p class="text-center">
+        Your account is created at <b>{{ authUser.metadata.creationTime | datetime }}</b>.
+      </p>
+
+      <!--Display Name-->
+      <v-text-field
+        v-model="formData.displayName"
+        outlined
+        flat
+        label="Display Name"
+        :prepend-inner-icon="icons.mdiAccountOutline"
+        @keyup.enter="onUpdateProfile"
+      >
+        <template v-slot:append>
+          <v-progress-circular v-if="loading.displayName" size="24" color="info" indeterminate />
+          <v-btn v-else text height="24" class="px-1" @click="onUpdateProfile">
+            Update
+          </v-btn>
+        </template>
+      </v-text-field>
+      <!--// Display Name-->
+
+      <!--Email-->
+      <v-text-field
+        v-model="formData.email"
+        outlined
+        flat
+        label="Email Address"
+        :prepend-inner-icon="icons.mdiEmailOutline"
+        @keyup.enter="onUpdateEmail"
+      >
+        <template v-slot:append>
+          <v-btn icon>
+            <v-icon></v-icon>
+          </v-btn>
+          <v-progress-circular v-if="loading.email" size="24" color="info" indeterminate />
+          <v-btn v-else text height="24" class="px-1" @click="onUpdateEmail">
+            Update
+          </v-btn>
+        </template>
+      </v-text-field>
+      <!--// Email-->
+
+      <!--Password-->
+      <v-text-field
+        v-model="formData.password"
+        outlined
+        flat
+        label="Password"
+        type="password"
+        hint="Just fill in this input when you want to change your password."
+        persistent-hint
+        :prepend-inner-icon="icons.mdiLockOutline"
+        @keyup.enter="onUpdatePassword"
+      >
+        <template v-slot:append>
+          <v-progress-circular v-if="loading.password" size="24" color="info" indeterminate />
+          <v-btn v-else text height="24" class="px-1" @click="onUpdatePassword">
+            Update
+          </v-btn>
+        </template>
+      </v-text-field>
+      <!--// Password-->
     </v-col>
   </v-row>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import { mdiAccountOutline, mdiEmailOutline, mdiLockOutline } from '@mdi/js';
 
 export default {
   name: 'Profile',
-  computed: {
-    ...mapGetters('auth', ['authUser']),
+  data() {
+    const authUser = Object.assign({}, this.$store.getters['auth/authUser']);
+
+    return {
+      formData: {
+        displayName: authUser.displayName,
+        email: authUser.email,
+        password: '',
+      },
+      loading: {
+        displayName: false,
+        email: false,
+        password: false,
+      },
+      icons: { mdiLockOutline, mdiEmailOutline, mdiAccountOutline },
+    };
   },
+  computed: mapGetters('auth', ['authUser']),
   methods: {
-    onLogOut() {
-      this.$store.dispatch('auth/logOut')
-        .then(() => {
-          this.$router.push({ name: 'login' });
+    onUpdateProfile() {
+      if (!this.formData.displayName) {
+        this.$store.dispatch('notification/setSnackText', 'Empty display name!');
+        return;
+      }
+      this.loading.displayName = true;
+
+      const payload = { displayName: this.formData.displayName };
+      this.$store.dispatch('auth/updateProfile', payload)
+        .finally(() => {
+          this.loading.displayName = false;
         });
+    },
+    onUpdateEmail() {
+      if (!this.formData.email) {
+        this.$store.dispatch('notification/setSnackText', 'Empty email address!');
+        return;
+      }
+
+      this.loading.email = true;
+      this.$store.dispatch('auth/updateEmail', this.formData.email)
+        .finally(() => {
+          this.loading.email = false;
+        });
+    },
+    onUpdatePassword() {
+      if (!this.formData.password) {
+        this.$store.dispatch('notification/setSnackText', 'Empty password!');
+        return;
+      }
+
+      this.loading.password = true;
+      this.$store.dispatch('auth/updatePassword', this.formData.password)
+        .finally(() => {
+          this.loading.password = false;
+        });
+    },
+    sendEmailVerification() {
+      if (!this.authUser.emailVerified) {
+        this.$store.dispatch('auth/sendEmailVerification');
+      }
     },
   },
 };

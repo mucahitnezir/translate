@@ -33,7 +33,11 @@ export default {
     Sidebar,
     SnackBar,
   },
-  data: () => ({}),
+  watch: {
+    '$vuetify.theme.dark': (isDark) => {
+      localStorage.setItem('vuetifyDarkTheme', isDark);
+    },
+  },
   created() {
     load({
       google: {
