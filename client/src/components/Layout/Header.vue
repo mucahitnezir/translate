@@ -11,9 +11,19 @@
     <v-spacer />
 
     <template v-if="!isAuthenticated">
-      <v-btn class="text-none" text :to="{ name: 'login' }">
-        Sign in
+      <v-btn icon @click="$vuetify.theme.dark = !$vuetify.theme.dark">
+        <v-icon>
+          {{ $vuetify.theme.dark ? icons.mdiWeatherNight : icons.mdiWhiteBalanceSunny }}
+        </v-icon>
       </v-btn>
+
+      <template v-if="$vuetify.breakpoint.smAndUp">
+        <v-divider class="mx-2 my-auto" vertical inset style="height: 20px" />
+
+        <v-btn class="text-none" text :to="{ name: 'login' }">
+          Sign in
+        </v-btn>
+      </template>
       <v-btn color="primary" class="text-none ml-1" depressed :to="{ name: 'register' }">
         Sign up
       </v-btn>
@@ -24,12 +34,18 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { mdiWeatherNight, mdiWhiteBalanceSunny } from '@mdi/js';
 
 import HeaderUserCard from '@/components/Layout/HeaderUserCard.vue';
 
 export default {
   name: 'Header',
   components: { HeaderUserCard },
+  data() {
+    return {
+      icons: { mdiWeatherNight, mdiWhiteBalanceSunny },
+    };
+  },
   computed: {
     ...mapGetters('auth', ['isAuthenticated']),
     drawerStatus() {

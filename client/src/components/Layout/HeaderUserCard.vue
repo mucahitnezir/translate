@@ -78,11 +78,6 @@ export default {
   computed: {
     ...mapGetters('auth', ['authUser']),
   },
-  watch: {
-    '$vuetify.theme.dark': (isDark) => {
-      localStorage.setItem('vuetifyDarkTheme', isDark);
-    },
-  },
   methods: {
     onLogout() {
       this.loading = true;
