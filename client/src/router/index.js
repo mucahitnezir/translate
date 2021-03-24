@@ -75,19 +75,8 @@ const router = new Router({
     },
     {
       path: '/profile',
+      name: 'profile-edit',
       component: () => import(/* webpackChunkName: "profile" */ '../views/Profile'),
-      children: [
-        {
-          path: '',
-          name: 'profile',
-          component: () => import(/* webpackChunkName: "profile-index" */ '../views/Profile/Index'),
-        },
-        {
-          path: 'edit',
-          name: 'profile-edit',
-          component: () => import(/* webpackChunkName: "profile-edit" */ '../views/Profile/Edit'),
-        },
-      ],
       meta: {
         requiresAuth: true,
       },
