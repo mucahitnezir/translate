@@ -6,8 +6,7 @@
       :to="to"
       :href="href"
       :target="target"
-      class="pa-8 mb-2"
-      style="border: 1px solid #ddd;"
+      class="pa-8 mb-2 border-grey"
       @click="$emit('click')"
     >
       <v-icon>{{ icon }}</v-icon>

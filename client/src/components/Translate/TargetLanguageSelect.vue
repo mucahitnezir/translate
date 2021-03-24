@@ -3,8 +3,10 @@
     v-model="targetLang"
     :items="targetLanguages"
     dense
-    solo
     hide-details
+    solo
+    :flat="!$vuetify.theme.dark"
+    :class="{'border-grey': !$vuetify.theme.dark}"
   />
 </template>
 

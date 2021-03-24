@@ -56,7 +56,7 @@ export default {
   .hp-100 {
     height: 100%;
   }
-  .bg-target-gray {
-    background-color: #F5F5F5;
+  .border-grey {
+    border: 1px solid #ddd!important;
   }
 </style>
