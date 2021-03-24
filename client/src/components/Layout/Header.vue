@@ -11,12 +11,15 @@
     <v-spacer />
 
     <template v-if="!isAuthenticated">
+      <!--Theme Selection-->
       <v-btn icon @click="$vuetify.theme.dark = !$vuetify.theme.dark">
         <v-icon>
           {{ $vuetify.theme.dark ? icons.mdiWeatherNight : icons.mdiWhiteBalanceSunny }}
         </v-icon>
       </v-btn>
+      <!--// Theme Selection-->
 
+      <!--Login Button-->
       <template v-if="$vuetify.breakpoint.smAndUp">
         <v-divider class="mx-2 my-auto" vertical inset style="height: 20px" />
 
@@ -24,9 +27,13 @@
           Sign in
         </v-btn>
       </template>
+      <!--// Login Button-->
+
+      <!--Sign Up Button-->
       <v-btn color="primary" class="text-none ml-1" depressed :to="{ name: 'register' }">
         Sign up
       </v-btn>
+      <!--// Sign Up Button-->
     </template>
     <HeaderUserCard v-else />
   </v-app-bar>
