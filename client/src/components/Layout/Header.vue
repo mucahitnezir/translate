@@ -10,11 +10,14 @@
 
     <v-spacer />
 
-    <v-btn
-      v-if="!isAuthenticated" color="primary" class="text-none" depressed :to="{ name: 'login' }"
-    >
-      Sign in
-    </v-btn>
+    <template v-if="!isAuthenticated">
+      <v-btn class="text-none" text :to="{ name: 'login' }">
+        Sign in
+      </v-btn>
+      <v-btn color="primary" class="text-none ml-1" depressed :to="{ name: 'register' }">
+        Sign up
+      </v-btn>
+    </template>
     <HeaderUserCard v-else />
   </v-app-bar>
 </template>
