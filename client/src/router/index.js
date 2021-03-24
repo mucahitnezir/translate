@@ -58,6 +58,14 @@ const router = new Router({
             requiresNoAuth: true,
           },
         },
+        {
+          path: 'password-reset',
+          name: 'password-reset',
+          component: () => import(/* webpackChunkName: "register" */ '../views/Auth/PasswordReset'),
+          meta: {
+            requiresNoAuth: true,
+          },
+        },
       ],
     },
     {

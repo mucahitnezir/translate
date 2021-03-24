@@ -1,41 +1,48 @@
 <template>
-  <v-form v-model="formValid" @submit.prevent="onFormSubmit">
-    <v-text-field
-      v-model="formData.email"
-      :rules="[formRules.required('Email address'), formRules.email]"
-      label="Email Address"
-      outlined
-      required
-    />
-    <PasswordInput v-model="formData.password" :rules="[formRules.required('Password')]" />
-    <div class="d-flex">
-      <PasswordResetForm />
-      <v-spacer />
-      <v-btn
-        :disabled="!formValid"
-        :loading="formLoading"
-        type="submit"
-        color="primary"
-        depressed
-      >
-        Login
-      </v-btn>
+  <AuthCard
+    title="Sign in to Translate"
+    bottom-text="Don't you have an account? "
+    :bottom-link="{ name: 'register' }"
+    bottom-link-text="Create an account"
+  >
+    <v-form v-model="formValid" class="mb-4" @submit.prevent="onFormSubmit">
+      <v-text-field
+        v-model="formData.email"
+        label="Email Address"
+        :rules="[formRules.required('Email address'), formRules.email]"
+        required
+      />
+      <PasswordInput
+        v-model="formData.password"
+        :outlined="false"
+        :rules="[formRules.required('Password')]"
+      />
+      <AuthButton :disabled="!formValid" :loading="formLoading">
+        Sign in
+      </AuthButton>
+    </v-form>
+    <div class="text-center">
+      <router-link :to="{ name: 'password-reset' }">
+        Forgot password?
+      </router-link>
     </div>
-  </v-form>
+  </AuthCard>
 </template>
 
 <script>
 import formMixin from '@/mixins/formMixin';
 
+import AuthCard from '@/components/Auth/AuthCard.vue';
+import AuthButton from '@/components/Auth/AuthButton.vue';
 import PasswordInput from '@/components/Shared/PasswordInput.vue';
-import PasswordResetForm from '@/components/Auth/PasswordResetForm.vue';
 
 export default {
   name: 'Login',
   mixins: [formMixin],
   components: {
+    AuthButton,
+    AuthCard,
     PasswordInput,
-    PasswordResetForm,
   },
   data: () => ({
     formData: {
