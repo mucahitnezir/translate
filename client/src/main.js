@@ -6,6 +6,7 @@ import store from './store';
 import vuetify from './plugins/vuetify';
 
 import './plugins/filters';
+import './plugins/vue-meta';
 
 Vue.config.productionTip = false;
 

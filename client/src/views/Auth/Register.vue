@@ -47,6 +47,9 @@ export default {
       password: '',
     },
   }),
+  metaInfo: {
+    title: 'Join to Translate',
+  },
   methods: {
     onFormSubmit() {
       this.formLoading = true;

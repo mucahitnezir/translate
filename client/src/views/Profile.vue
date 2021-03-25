@@ -98,6 +98,9 @@ export default {
     };
   },
   computed: mapGetters('auth', ['authUser']),
+  metaInfo: {
+    title: 'Update Profile',
+  },
   methods: {
     onUpdateProfile() {
       if (!this.formData.displayName) {

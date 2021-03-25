@@ -7,5 +7,8 @@
 <script>
 export default {
   name: 'NotFound',
+  metaInfo: {
+    title: 'Not Found',
+  },
 };
 </script>

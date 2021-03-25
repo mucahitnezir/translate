@@ -33,6 +33,10 @@ export default {
     Sidebar,
     SnackBar,
   },
+  metaInfo: {
+    title: 'Translate App',
+    titleTemplate: '%s | Translate App',
+  },
   watch: {
     '$vuetify.theme.dark': (isDark) => {
       localStorage.setItem('vuetifyDarkTheme', isDark);
