@@ -6,11 +6,19 @@ translations. It supports **20+ languages**.
 ## Purpose
 
 There are many translation applications available nowadays, such as [Google Translate](https://translate.google.com),
-[Yandex Translate](https://translate.yandex.com/) and [Bing Translator](https://www.bing.com/translator). The main
-purpose of developing this application is to show how we can use different technologies together with a sample project.
+[Yandex Translate](https://translate.yandex.com/) and [Bing Translator](https://www.bing.com/translator). This project
+has been developed using many technologies. The main purpose of developing this application is to show how we can use
+these technologies together with a sample project.
 
 **Note:** It was a project that I had started while teaching vue.js to my teammates. Afterwards, I tried to complete the
 project by making improvements in my free time.
+
+## Limitations
+
+There are some limitations for lower AWS billing.
+
+1. Translations are limited to 100 characters.
+2. Translations are not translated as soon as you write. You have to use translation button.
 
 ## Features
 
