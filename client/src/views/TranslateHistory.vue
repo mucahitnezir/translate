@@ -55,6 +55,9 @@ export default {
     icons: { mdiChevronRight, mdiDeleteOutline },
   }),
   computed: mapState('auth', ['user']),
+  metaInfo: {
+    title: 'Translation History',
+  },
   mounted() {
     this.loading = true;
     this.unsubscribe = firestore

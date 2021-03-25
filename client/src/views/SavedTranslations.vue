@@ -12,5 +12,8 @@ import RightPanel from '@/components/Layout/RightPanel.vue';
 export default {
   name: 'SavedTranslations',
   components: { RightPanel },
+  metaInfo: {
+    title: 'Saved Translations',
+  },
 };
 </script>

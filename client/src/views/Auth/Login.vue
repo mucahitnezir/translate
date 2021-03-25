@@ -50,6 +50,9 @@ export default {
       password: '',
     },
   }),
+  metaInfo: {
+    title: 'Sign in to Translate',
+  },
   methods: {
     onFormSubmit() {
       this.formLoading = true;

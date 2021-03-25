@@ -37,6 +37,9 @@ export default {
       email: '',
     },
   }),
+  metaInfo: {
+    title: 'Forgot your password?',
+  },
   methods: {
     onFormSubmit() {
       this.formLoading = true;

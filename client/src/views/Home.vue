@@ -78,5 +78,9 @@ export default {
     icons: { mdiGithubCircle, mdiHistory, mdiStar },
     githubUrl: 'https://github.com/mucahitnezir/translate',
   }),
+  metaInfo: {
+    title: 'Translate App',
+    titleTemplate: null,
+  },
 };
 </script>

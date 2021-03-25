@@ -47,12 +47,27 @@ export default {
       password: '',
     },
   }),
+  metaInfo: {
+    title: 'Join to Translate',
+  },
   methods: {
     onFormSubmit() {
       this.formLoading = true;
       functions.httpsCallable('register')(this.formData)
         .then(() => {
-          this.$router.push({ name: 'login' });
+          // Auto login for user
+          const payload = { email: this.formData.email, password: this.formData.password };
+          this.$store.dispatch('auth/login', payload)
+            .then(() => {
+              const message = 'Your account has been created successfully.';
+              this.$store.dispatch('notification/setSnackText', message);
+              this.$router.push({ name: 'home' });
+            })
+            .catch(() => {
+              const message = 'Your account has been created, but the login could not be provided. Please login with the information you have registered.';
+              this.$store.dispatch('notification/setSnackText', message);
+              this.$router.push({ name: 'login' });
+            });
         })
         .catch((err) => {
           // Create notification
