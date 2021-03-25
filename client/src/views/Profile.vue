@@ -39,13 +39,21 @@
         @keyup.enter="onUpdateEmail"
       >
         <template v-slot:append>
-          <v-btn icon>
-            <v-icon></v-icon>
-          </v-btn>
-          <v-progress-circular v-if="loading.email" size="24" color="info" indeterminate />
-          <v-btn v-else text height="24" class="px-1" @click="onUpdateEmail">
-            Update
-          </v-btn>
+          <div class="d-flex align-center justify-center">
+            <ActionButton
+              v-if="!authUser.emailVerified"
+              :icon="icons.mdiEmailCheckOutline"
+              :loading="loading.verification"
+              tooltip="Confirm"
+              height="24"
+              @click="sendEmailVerification"
+            />
+
+            <v-progress-circular v-if="loading.email" size="24" color="info" indeterminate />
+            <v-btn v-else text height="24" class="px-1" @click="onUpdateEmail">
+              Update
+            </v-btn>
+          </div>
         </template>
       </v-text-field>
       <!--// Email-->
@@ -76,10 +84,14 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { mdiAccountOutline, mdiEmailOutline, mdiLockOutline } from '@mdi/js';
+import {
+  mdiAccountOutline, mdiEmailCheckOutline, mdiEmailOutline, mdiLockOutline,
+} from '@mdi/js';
+import ActionButton from '@/components/Shared/ActionButton.vue';
 
 export default {
   name: 'Profile',
+  components: { ActionButton },
   data() {
     const authUser = Object.assign({}, this.$store.getters['auth/authUser']);
 
@@ -93,8 +105,11 @@ export default {
         displayName: false,
         email: false,
         password: false,
+        verification: false,
       },
-      icons: { mdiLockOutline, mdiEmailOutline, mdiAccountOutline },
+      icons: {
+        mdiLockOutline, mdiEmailCheckOutline, mdiEmailOutline, mdiAccountOutline,
+      },
     };
   },
   computed: mapGetters('auth', ['authUser']),
@@ -123,6 +138,9 @@ export default {
 
       this.loading.email = true;
       this.$store.dispatch('auth/updateEmail', this.formData.email)
+        .then(() => {
+          this.sendEmailVerification();
+        })
         .finally(() => {
           this.loading.email = false;
         });
@@ -141,7 +159,11 @@ export default {
     },
     sendEmailVerification() {
       if (!this.authUser.emailVerified) {
-        this.$store.dispatch('auth/sendEmailVerification');
+        this.loading.verification = true;
+        this.$store.dispatch('auth/sendEmailVerification')
+          .finally(() => {
+            this.loading.verification = false;
+          });
       }
     },
   },
