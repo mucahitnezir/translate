@@ -79,7 +79,7 @@ export default {
     githubUrl: 'https://github.com/mucahitnezir/translate',
   }),
   metaInfo: {
-    title: 'Translate App',
+    title: 'Translate',
     titleTemplate: null,
   },
 };

@@ -33,8 +33,8 @@ export default {
     TheNotificationWrapper,
   },
   metaInfo: {
-    title: 'Translate App',
-    titleTemplate: '%s | Translate App',
+    title: 'Translate',
+    titleTemplate: '%s · Translate',
   },
   watch: {
     '$vuetify.theme.dark': (isDark) => {
