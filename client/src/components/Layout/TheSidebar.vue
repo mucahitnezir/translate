@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  name: 'Sidebar',
+  name: 'TheSidebar',
   data: () => ({
     menuItems: [
       { title: 'About Translate', to: { name: 'about' } },

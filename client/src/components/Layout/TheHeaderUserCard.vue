@@ -67,7 +67,7 @@ import { mapGetters } from 'vuex';
 import { mdiWeatherNight, mdiWhiteBalanceSunny } from '@mdi/js';
 
 export default {
-  name: 'HeaderUserCard',
+  name: 'TheHeaderUserCard',
   data() {
     return {
       menu: false,

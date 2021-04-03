@@ -35,7 +35,7 @@
       </v-btn>
       <!--// Sign Up Button-->
     </template>
-    <HeaderUserCard v-else />
+    <TheHeaderUserCard v-else />
   </v-app-bar>
 </template>
 
@@ -43,11 +43,11 @@
 import { mapGetters } from 'vuex';
 import { mdiWeatherNight, mdiWhiteBalanceSunny } from '@mdi/js';
 
-import HeaderUserCard from '@/components/Layout/HeaderUserCard.vue';
+import TheHeaderUserCard from '@/components/Layout/TheHeaderUserCard.vue';
 
 export default {
-  name: 'Header',
-  components: { HeaderUserCard },
+  name: 'TheHeader',
+  components: { TheHeaderUserCard },
   data() {
     return {
       icons: { mdiWeatherNight, mdiWhiteBalanceSunny },
@@ -62,15 +62,6 @@ export default {
   methods: {
     changeDrawerStatus() {
       this.$store.dispatch('changeDrawerStatus', !this.drawerStatus);
-    },
-    onLogOut() {
-      this.$store.dispatch('auth/logOut')
-        .then(() => {
-          this.$router.push({ name: 'login' });
-        })
-        .catch((err) => {
-          this.$store.dispatch('notification/setSnackText', err.message);
-        });
     },
   },
 };

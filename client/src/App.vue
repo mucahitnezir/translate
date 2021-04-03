@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <Header />
+    <TheHeader />
 
-    <Sidebar />
+    <TheSidebar />
 
     <v-content>
       <v-container>
@@ -12,7 +12,7 @@
 
     <router-view name="right" />
 
-    <SnackBar />
+    <TheNotificationWrapper />
   </v-app>
 </template>
 
@@ -21,17 +21,16 @@ import { load } from 'webfontloader';
 
 import { auth } from './firebase';
 
-import Header from './components/Layout/Header.vue';
-import Sidebar from './components/Layout/Sidebar.vue';
-
-import SnackBar from './components/Notification/SnackBar.vue';
+import TheHeader from './components/Layout/TheHeader.vue';
+import TheSidebar from './components/Layout/TheSidebar.vue';
+import TheNotificationWrapper from './components/Layout/TheNotificationWrapper.vue';
 
 export default {
   name: 'App',
   components: {
-    Header,
-    Sidebar,
-    SnackBar,
+    TheHeader,
+    TheSidebar,
+    TheNotificationWrapper,
   },
   metaInfo: {
     title: 'Translate App',

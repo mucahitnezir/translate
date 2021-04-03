@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'SnackBar',
+  name: 'TheNotificationWrapper',
   computed: {
     text() {
       return this.$store.state.notification.snack.text;
